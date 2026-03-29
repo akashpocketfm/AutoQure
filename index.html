@@ -617,8 +617,8 @@
 
     <!-- Hero Section -->
     <section class="hero container reveal">
-        <h1>Ensuring Quality via <br><span class="gradient-text">Autonomous AI Intelligence</span></h1>
-        <p>An AI-driven QA system that reads Pocket Toons code, generates coverage candidates, validates them through compile and quality gates, runs them on real devices, and corrects failures through guarded workflows.</p>
+        <h1>Scaling QA via <br><span class="gradient-text">AI-Driven Automation</span></h1>
+        <p>An AI-driven QA system that reads Pocket Toons code, generates coverage candidates, validates them through quality and compile gates, runs them on real devices, and corrects failures through guarded workflows.</p>
         <div>
             <a href="#comparison" class="btn btn-primary" style="margin-right: 15px;">Why AutoQure?</a>
             <a href="#architecture" class="btn">View System Flow</a>
@@ -649,10 +649,10 @@
             <div class="comp-card autoqure glass">
                 <h3 style="color: #fff;"><i class="uil uil-brain" style="background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> AutoQure System</h3>
                 <ul class="comp-list">
-                    <li><i class="uil uil-file-alt"></i> AI organically generates tests directly from PRD specs and Source Code.</li>
-                    <li><i class="uil uil-shield-check"></i> Resilient; dynamically self-heals selectors and timeouts on the fly.</li>
-                    <li><i class="uil uil-rocket"></i> Automatically scans uncovered features and generates initial runnable coverage candidates.</li>
-                    <li><i class="uil uil-wrench"></i> Autonomous Engine investigates failures and applies localized code patches.</li>
+                    <li><i class="uil uil-file-alt"></i> AI generates coverage candidates directly from PRD specs and source code.</li>
+                    <li><i class="uil uil-shield-check"></i> Resilient; generated output passes through quality and compile gates before execution.</li>
+                    <li><i class="uil uil-rocket"></i> Automatically scans uncovered features and produces initial runnable coverage candidates.</li>
+                    <li><i class="uil uil-wrench"></i> The execution pipeline investigates failures and can generate targeted fixes through guarded workflows.</li>
                 </ul>
             </div>
         </div>
@@ -669,17 +669,17 @@
             <div class="card glass">
                 <i class="uil uil-brain"></i>
                 <h3>Claude-Powered Intelligence</h3>
-                <p>The system natively integrates with Claude to digest complex UI logic, understanding the Pocket Toons domain without requiring human guidance.</p>
+                <p>The system integrates with Claude to interpret Pocket Toons source, layouts, and feature behavior, reducing manual scripting effort during coverage expansion.</p>
             </div>
             <div class="card glass">
                 <i class="uil uil-file-search-alt"></i>
                 <h3>PRD & Page Object Discovery</h3>
-                <p>An auto-discovery engine pulls real Kotlin source code and Layout XML to feed the LLM, authoring tests from specs—not manual engineering.</p>
+                <p>An auto-discovery engine reads Kotlin source and layout XML, builds feature specs, and uses page-object context to generate Java Appium coverage.</p>
             </div>
             <div class="card glass">
                 <i class="uil uil-robot"></i>
                 <h3>Lower Maintenance via Self-Healing</h3>
-                <p>When the app's UI changes, manual tests inevitably break. AutoQure actively catches these breaks, patches its own scripts, and executes retries.</p>
+                <p>When the app or UI changes, AutoQure classifies failures, applies guarded fixes where possible, and retries through the existing healing pipeline.</p>
             </div>
         </div>
 
@@ -734,7 +734,7 @@
                 <div class="timeline-number">2</div>
                 <div class="timeline-content glass card">
                     <h3><i class="uil uil-file-edit-alt"></i> Generate</h3>
-                    <p>The <strong>PRD Parser</strong> structures JSON test specifications. Driven by these specs, Claude creates production-oriented Java Appium code targeting our UI elements. <em>(Includes Confidence Scoring: every method is evaluated 0.0-1.0 to flag uncertainties).</em></p>
+                    <p>The <strong>PRD Parser</strong> converts feature specs into structured test cases. Claude then generates Java Appium tests using page-object context, and each method is scored for confidence so low-trust output can be flagged early.</p>
                 </div>
             </div>
 
@@ -743,7 +743,7 @@
                 <div class="timeline-number">3</div>
                 <div class="timeline-content glass card">
                     <h3><i class="uil uil-shield-check"></i> Compile</h3>
-                    <p>Our Orchestrator pauses to ensure safety. It runs a background build via Maven (`mvn -q -DskipTests test-compile`) to validate that the generated Java test code is compile-safe before execution.</p>
+                    <p>Before any device execution, the orchestrator runs quality and compile gates. Only compile-safe generated classes are allowed into the runnable suite.</p>
                 </div>
             </div>
 
@@ -761,7 +761,7 @@
                 <div class="timeline-number">5</div>
                 <div class="timeline-content glass card" style="border-color: var(--primary); box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);">
                     <h3><i class="uil uil-star"></i> Self-Healing</h3>
-                    <p>The key capability. If a test fails, the agent intercepts the failure. It classifies the exact error type (UI change, crash, timeout), automatically writes a code patch, rebuilds the APK if necessary, and retries <strong>automatically within guarded workflows</strong>.</p>
+                    <p>If a test fails, the pipeline classifies the failure type, attempts a guarded fix, rebuilds the APK when required, and retries automatically. Recent updates also isolate stale generated artifacts and exclude low-quality generated tests before execution.</p>
                 </div>
             </div>
         </div>
@@ -771,15 +771,15 @@
     <section id="healing" class="container">
         <div class="section-header reveal">
             <h2>Pipeline Differentiator: <span class="gradient-text">Self-Healing</span></h2>
-            <p>Our autonomous pipeline does more than report bugs—it can generate and validate targeted patches.</p>
+            <p>Our execution pipeline does more than report failures. It can classify, repair, validate, and retry within controlled safeguards.</p>
         </div>
         
         <div class="healing-section reveal">
             <div>
                 <h3 style="font-size: 2.2rem; margin-bottom: 1.5rem;">A Closed-Loop Defect System</h3>
                 <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 1.5rem;">
-                    When a traditional pipeline fails, it creates a ticket and blocks delivery. 
-                    When <strong>AutoQure</strong> fails, it immediately activates the Self-Healing CLI.
+                    In a traditional pipeline, a failure creates a ticket and blocks progress.
+                    In <strong>AutoQure</strong>, a failure can trigger an automated recovery path through the healing pipeline.
                 </p>
                 <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; color: #f8fafc;">
                     <li><i class="uil uil-check-circle" style="color: var(--accent); margin-right: 10px;"></i> <strong>Test Fix Engine:</strong> Rewrites incorrect selectors, adjusts timeouts, or updates scrolling logic.</li>
@@ -803,35 +803,33 @@
     <section id="stats" class="container" style="min-height: auto; padding-bottom: 100px;">
         <div class="glass card reveal" style="padding: 3rem;">
             <h2 style="text-align: center; margin-bottom: 2rem;">Program Reach & Milestones</h2>
-            <div style="text-align: center; margin-bottom: 3.5rem;">
-                <span style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 50px; color: var(--accent); font-weight: 600; font-size: 1.05rem;">
-                    <i class="uil uil-check-circle" style="font-size: 1.3rem;"></i> Proven: Search feature executed end-to-end on physical device with 3/3 passing tests
-                </span>
-            </div>
+            <p style="text-align: center; color: #94a3b8; margin-top: -2rem; margin-bottom: 2rem;">
+                Current proof point: Search feature executed end-to-end through the AutoQure pipeline and passed on a physical device.
+            </p>
             <div class="stats-grid">
                 
                 <div class="stat-card">
                     <h3>1</h3>
-                    <p>Generated Feature Proven E2E</p>
-                    <span class="subtext">Next target: episode_nav hardening in progress</span>
+                    <p>Feature Proven E2E</p>
+                    <span class="subtext">Search validated on physical device</span>
                 </div>
                 
                 <div class="stat-card">
                     <h3>3/3</h3>
-                    <p>Search Tests Validated</p>
-                    <span class="subtext">100% On-Device Pass Rate</span>
+                    <p>Search Tests Passing</p>
+                    <span class="subtext">End-to-end generated/refined flow</span>
                 </div>
 
                 <div class="stat-card">
                     <h3>2</h3>
                     <p>Physical Devices Active</p>
-                    <span class="subtext">Samsung M12 Lab Integration</span>
+                    <span class="subtext">Samsung M12 lab setup</span>
                 </div>
                 
                 <div class="stat-card">
                     <h3>16+</h3>
                     <p>Failure Categories Classified</p>
-                    <span class="subtext">Auto-handled edge cases</span>
+                    <span class="subtext">Used by the healing pipeline</span>
                 </div>
                 
                 <div class="stat-card">
@@ -841,9 +839,9 @@
                 </div>
                 
                 <div class="stat-card">
-                    <h3>40+</h3>
-                    <p>Search Test Cases Generated</p>
-                    <span class="subtext">First feature proven end-to-end</span>
+                    <h3>9</h3>
+                    <p>Target Feature Groups</p>
+                    <span class="subtext">Search proven, episode_nav next</span>
                 </div>
                 
             </div>
