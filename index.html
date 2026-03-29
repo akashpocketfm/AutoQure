@@ -578,6 +578,77 @@
             .hero {
                 padding-top: 58px;
             }
+            
+            .pipeline-track {
+                left: 35px !important;
+            }
+        }
+
+        /* Interactive Cursor Glow */
+        .glass, .card, .step-body, .status-card, .stat, .proof-chip {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass::before, .card::before, .step-body::before, .status-card::before, .stat::before, .proof-chip::before {
+            content: "";
+            position: absolute;
+            top: var(--cursor-y, -100px);
+            left: var(--cursor-x, -100px);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(91, 124, 255, 0.15) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glass:hover::before, .card:hover::before, .step-body:hover::before, .status-card:hover::before, .stat:hover::before, .proof-chip:hover::before {
+            opacity: 1;
+        }
+
+        .glass > *, .card > *, .step-body > *, .status-card > *, .stat > *, .proof-chip > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Interactive Pipeline Track */
+        .pipeline {
+            position: relative;
+        }
+
+        .pipeline-track {
+            position: absolute;
+            left: 42px;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 0;
+            border-radius: 4px;
+        }
+        
+        .pipeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(36, 200, 165, 0.5);
+            transition: height 0.1s ease-out;
+        }
+
+        .step {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-num {
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -713,6 +784,7 @@
         </div>
 
         <div class="pipeline">
+            <div class="pipeline-track"><div class="pipeline-progress" id="pipeline-progress"></div></div>
             <div class="step">
                 <div class="step-num">1</div>
                 <div class="step-body glass">
@@ -792,6 +864,19 @@
                         <span class="tag">Patch generation</span>
                         <span class="tag">Rebuild + retry</span>
                     </div>
+                    
+                    <!-- Sandbox Demo -->
+                    <div style="margin-top: 24px; padding: 18px; background: rgba(0,0,0,0.2); border-radius: 14px; border: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 12px; position: relative;">
+                            <div id="heal-node" style="min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;"><i class="uil uil-mobile-android"></i></div>
+                            <div style="width: 60px; height: 2px; background: rgba(255,255,255,0.1); position: relative; z-index: 1;">
+                                <div id="heal-beam" style="height: 100%; width: 0%; background: var(--primary); box-shadow: 0 0 10px var(--primary); transition: width 0.5s;"></div>
+                            </div>
+                            <div id="heal-ai" style="min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;"><i class="uil uil-brain"></i></div>
+                        </div>
+                        <button class="btn btn-primary" id="btn-trigger-heal" style="font-size: 0.85rem; padding: 8px 16px; border-radius: 8px;">Trigger Crash</button>
+                    </div>
+                    <div id="heal-log" style="margin-top: 12px; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.85rem; color: var(--danger); min-height: 20px;"></div>
                 </div>
             </div>
         </div>
@@ -1113,6 +1198,104 @@
                 document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
             }
         });
+
+        // 1. Interactive Cursor Glow
+        document.querySelectorAll('.glass, .card, .step-body, .status-card, .stat, .proof-chip').forEach(el => {
+            el.addEventListener('mousemove', e => {
+                const rect = el.getBoundingClientRect();
+                el.style.setProperty('--cursor-x', `${e.clientX - rect.left}px`);
+                el.style.setProperty('--cursor-y', `${e.clientY - rect.top}px`);
+            });
+        });
+
+        // 2. Data-Flow Timeline Progress
+        const pipeline = document.querySelector('.pipeline');
+        const progress = document.getElementById('pipeline-progress');
+        if(pipeline && progress) {
+            window.addEventListener('scroll', () => {
+                const rect = pipeline.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const scrollPercentage = Math.max(0, Math.min(100, ((windowHeight/1.5 - rect.top) / rect.height) * 100));
+                progress.style.height = scrollPercentage + '%';
+                
+                document.querySelectorAll('.step-num').forEach((num, index) => {
+                    const threshold = (index / 4) * 80;
+                    if (scrollPercentage >= threshold) {
+                        num.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+                        num.style.color = '#fff';
+                        num.style.borderColor = 'transparent';
+                        num.style.boxShadow = '0 0 20px rgba(36, 200, 165, 0.4)';
+                    } else {
+                        num.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03))';
+                        num.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                        num.style.boxShadow = 'none';
+                    }
+                });
+            });
+        }
+
+        // 3. Self-Healing Sandbox Demo
+        const btnHeal = document.getElementById('btn-trigger-heal');
+        const healNode = document.getElementById('heal-node');
+        const healBeam = document.getElementById('heal-beam');
+        const healAi = document.getElementById('heal-ai');
+        const healLog = document.getElementById('heal-log');
+        
+        if(btnHeal) {
+            btnHeal.addEventListener('click', () => {
+                btnHeal.disabled = true;
+                btnHeal.style.opacity = '0.5';
+                
+                healNode.style.borderColor = 'var(--danger)';
+                healNode.style.color = 'var(--danger)';
+                healNode.innerHTML = '<i class="uil uil-times"></i>';
+                healLog.style.color = 'var(--danger)';
+                healLog.textContent = '> Exception: ElementNotFound at episode_nav';
+                
+                setTimeout(() => {
+                    healBeam.style.width = '100%';
+                    healLog.style.color = 'var(--muted)';
+                    healLog.textContent = '> Transmitting stack trace to orchestrator...';
+                }, 800);
+                
+                setTimeout(() => {
+                    healAi.style.borderColor = 'var(--accent)';
+                    healAi.style.color = 'var(--accent)';
+                    healAi.style.boxShadow = '0 0 25px rgba(139, 92, 246, 0.5)';
+                    healAi.innerHTML = '<i class="uil uil-sync uil-spin"></i>';
+                    healLog.textContent = '> Claude analyzing hierarchy. Generating patch...';
+                }, 1600);
+                
+                setTimeout(() => {
+                    healBeam.style.background = 'var(--success)';
+                    healBeam.style.boxShadow = '0 0 10px var(--success)';
+                    healAi.innerHTML = '<i class="uil uil-brain"></i>';
+                    healAi.style.borderColor = 'var(--success)';
+                    healAi.style.color = 'var(--success)';
+                    healNode.style.borderColor = 'var(--success)';
+                    healNode.style.color = 'var(--success)';
+                    healNode.innerHTML = '<i class="uil uil-check"></i>';
+                    healLog.style.color = 'var(--success)';
+                    healLog.textContent = '> Patch verified. Element located. Execution resumed.';
+                }, 3200);
+                
+                setTimeout(() => {
+                    healBeam.style.width = '0%';
+                    setTimeout(() => {
+                        healBeam.style.background = 'var(--primary)';
+                        healBeam.style.boxShadow = '0 0 10px var(--primary)';
+                    }, 500);
+                    healAi.style = 'min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;';
+                    healNode.style = 'min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;';
+                    healAi.innerHTML = '<i class="uil uil-brain"></i>';
+                    healNode.innerHTML = '<i class="uil uil-mobile-android"></i>';
+                    healLog.textContent = '';
+                    btnHeal.disabled = false;
+                    btnHeal.style.opacity = '1';
+                }, 6000);
+            });
+        }
     </script>
 </body>
+
 </html>
