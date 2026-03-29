@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoQure | Presentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-color: #f1f5f9;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #14b8a6;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .brand {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Abstract glowing background */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float 20s infinite alternate;
+        }
+
+        .shape-1 { width: 50vw; height: 50vw; background: var(--primary); top: -20%; left: -10%; }
+        .shape-2 { width: 40vw; height: 40vw; background: var(--secondary); top: 30%; right: -10%; animation-delay: -5s; }
+        .shape-3 { width: 60vw; height: 60vw; background: var(--accent); bottom: -30%; left: 20%; animation-delay: -10s; opacity: 0.3; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 5%) scale(1.1); }
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        /* Sections */
+        section {
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 0;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding-top: 8vh;
+            padding-bottom: 5vh;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradient-flow 5s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Outfit';
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
+        }
+
+        .scroll-down {
+            margin-top: 3rem;
+            font-size: 2rem;
+            color: rgba(255,255,255,0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        /* Section Titles */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comp-card {
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comp-card.traditional {
+            background: rgba(239, 68, 68, 0.05);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .comp-card.autoqure {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);
+        }
+
+        .comp-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .comp-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comp-list li {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        .comp-list i {
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+
+        .traditional i { color: var(--danger); }
+        .autoqure i { color: var(--accent); }
+
+        /* Architecture Flow Diagram */
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .flow-node {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            min-width: 140px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .flow-node.highlight {
+            border-color: var(--secondary);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .flow-node i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .flow-node p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #f1f5f9;
+        }
+
+        .flow-arrow {
+            flex-grow: 1;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+            position: relative;
+            min-width: 30px;
+            margin: 0 10px;
+        }
+
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid rgba(255,255,255,0.4);
+        }
+        
+        .flow-loop {
+            margin-top: -20px;
+            color: var(--accent);
+            text-align: center;
+            width: 100%;
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding-bottom: 10px;
+        }
+
+        /* Value Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            padding: 2.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .card p {
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        /* Workflow Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .timeline-number {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--bg-color), rgba(255,255,255,0.05));
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'Outfit';
+            color: #fff;
+            flex-shrink: 0;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .timeline-content {
+            flex-grow: 1;
+            padding: 2.5rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .timeline-content h3 i {
+            color: var(--primary);
+        }
+
+        .timeline-content p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        /* The Secret Sauce (Self Healing) */
+        .healing-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .healing-visual {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-path {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 50%;
+            animation: spin 20s linear infinite;
+        }
+
+        .node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: var(--bg-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        /* Simplified rotation positioning */
+        .node-1 { top: -40px; left: calc(50% - 40px); color: #ef4444; } /* Fail */
+        .node-2 { right: -40px; top: calc(50% - 40px); color: #eab308; } /* Analyze */
+        .node-3 { bottom: -40px; left: calc(50% - 40px); color: var(--primary); } /* Fix */
+        .node-4 { left: -40px; top: calc(50% - 40px); color: var(--accent); } /* Retry */
+
+        /* Counter rotate icons so they stay upright */
+        .node i {
+            animation: spin-reverse 20s linear infinite;
+        }
+
+        .center-ai {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #fff;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+            z-index: 5;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+
+        /* Success Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stat-card h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .stat-card p {
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+        }
+
+        .stat-card .subtext {
+            display: block;
+            text-transform: none;
+            color: #64748b;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3.5rem; }
+            .timeline::before { left: 40px; }
+            .timeline-item { gap: 1.5rem; }
+            .timeline-number { width: 80px; height: 80px; font-size: 2rem; }
+            .healing-section { grid-template-columns: 1fr; gap: 2rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+            
+            /* Responsive Circle Fix */
+            .healing-visual { transform: scale(0.7); height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="container">
+        <nav>
+            <div class="brand">AutoQure</div>
+            <div class="nav-links">
+                <a href="#comparison">Paradigm Shift</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#healing">Self-Healing</a>
+                <a href="#stats">Milestones</a>
+                <a href="#how-it-works" class="btn btn-primary" style="color: white; padding: 0.5rem 1.5rem;">Explore Pipeline</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero container reveal">
+        <h1>Ensuring Quality via <br><span class="gradient-text">Autonomous AI Intelligence</span></h1>
+        <p>An AI-driven QA system that reads Pocket Toons code, generates test cases, runs them on real devices, and corrects failures through guarded workflows.</p>
+        <div>
+            <a href="#comparison" class="btn btn-primary" style="margin-right: 15px;">Why AutoQure?</a>
+            <a href="#architecture" class="btn">View System Flow</a>
+        </div>
+        <i class="uil uil-angle-double-down scroll-down"></i>
+    </section>
+
+    <!-- Before vs After Paradigm Shift -->
+    <section id="comparison" class="container">
+        <div class="section-header reveal" style="margin-bottom: 2rem;">
+            <h2>The Automation Paradigm Shift</h2>
+            <p>Moving away from brittle, high-maintenance manual scripting.</p>
+        </div>
+        
+        <div class="comparison-grid reveal">
+            <!-- Traditional QA -->
+            <div class="comp-card traditional">
+                <h3><i class="uil uil-times-circle"></i> Standard Automation</h3>
+                <ul class="comp-list">
+                    <li><i class="uil uil-user"></i> Engineers manually write Appium test scripts from scratch.</li>
+                    <li><i class="uil uil-link-broken"></i> Extremely brittle; completely breaks on minor UI or selector changes.</li>
+                    <li><i class="uil uil-hourglass"></i> Requires weeks of overhead to map and cover new features.</li>
+                    <li><i class="uil uil-bug"></i> Test failures require human developers to investigate and submit PRs.</li>
+                </ul>
+            </div>
+            
+            <!-- AutoQure -->
+            <div class="comp-card autoqure glass">
+                <h3 style="color: #fff;"><i class="uil uil-brain" style="background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> AutoQure System</h3>
+                <ul class="comp-list">
+                    <li><i class="uil uil-file-alt"></i> AI organically generates tests directly from PRD specs and Source Code.</li>
+                    <li><i class="uil uil-shield-check"></i> Resilient; dynamically self-heals selectors and timeouts on the fly.</li>
+                    <li><i class="uil uil-rocket"></i> Automatically scans and covers complete feature sets in minutes.</li>
+                    <li><i class="uil uil-wrench"></i> Autonomous Engine investigates failures and applies localized code patches.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition / Architecture Core -->
+    <section id="architecture" class="container">
+        <div class="section-header reveal" style="margin-bottom: 2rem;">
+            <h2>The System We've Built</h2>
+            <p>Intelligence seamlessly coupled with execution.</p>
+        </div>
+        
+        <div class="grid-3 reveal">
+            <div class="card glass">
+                <i class="uil uil-brain"></i>
+                <h3>Claude-Powered Intelligence</h3>
+                <p>The system natively integrates with Claude to digest complex UI logic, understanding the Pocket Toons domain without requiring human guidance.</p>
+            </div>
+            <div class="card glass">
+                <i class="uil uil-file-search-alt"></i>
+                <h3>PRD & Page Object Discovery</h3>
+                <p>An auto-discovery engine pulls real Kotlin source code and Layout XML to feed the LLM, authoring tests from specs—not manual engineering.</p>
+            </div>
+            <div class="card glass">
+                <i class="uil uil-robot"></i>
+                <h3>Lower Maintenance via Self-Healing</h3>
+                <p>When the app's UI changes, manual tests inevitably break. AutoQure actively catches these breaks, patches its own scripts, and executes retries.</p>
+            </div>
+        </div>
+
+        <!-- Architecture Flow -->
+        <div class="flow-diagram reveal">
+            <div class="flow-node">
+                <i class="uil uil-android"></i>
+                <p>Kotlin / XML Source</p>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node highlight">
+                <i class="uil uil-brain"></i>
+                <p>AI Generation Layer</p>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node">
+                <i class="uil uil-file-lock-alt"></i>
+                <p>Java Appium Source</p>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node">
+                <i class="uil uil-mobile-android"></i>
+                <p>Physical Test Devices</p>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node highlight" style="border-color: var(--accent);">
+                <i class="uil uil-sync"></i>
+                <p>Healing Controller</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The 5 Steps Workflow -->
+    <section id="how-it-works" class="container">
+        <div class="section-header reveal">
+            <h2>The Data Flow Pipeline</h2>
+            <p>Here is exactly how the orchestrator processes a mobile feature.</p>
+        </div>
+        
+        <div class="timeline">
+            <!-- Step 1 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-number">1</div>
+                <div class="timeline-content glass card">
+                    <h3><i class="uil uil-search"></i> Explore</h3>
+                    <p>The <strong>App Explorer</strong> scans Pocket Toons' raw Android source files. It reads `.kt` files and layout `.xml`, building a deep structural map and identifying available user interactions.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-number">2</div>
+                <div class="timeline-content glass card">
+                    <h3><i class="uil uil-file-edit-alt"></i> Generate</h3>
+                    <p>The <strong>PRD Parser</strong> structures JSON test specifications. Driven by these specs, Claude creates production-oriented Java Appium code targeting our UI elements. <em>(Includes Confidence Scoring: every method is evaluated 0.0-1.0 to flag uncertainties).</em></p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-number">3</div>
+                <div class="timeline-content glass card">
+                    <h3><i class="uil uil-shield-check"></i> Compile</h3>
+                    <p>Our Orchestrator pauses to ensure safety. It runs a background build via Maven (`mvn -q -DskipTests test-compile`) to validate that the generated Java test code is compile-safe before execution.</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-number">4</div>
+                <div class="timeline-content glass card">
+                    <h3><i class="uil uil-play-circle"></i> Execute</h3>
+                    <p>Using our Master Runner script, AutoQure wipes device state, establishes logcat recording, and runs the entire compiled execution suite natively within a <strong>physical Samsung device lab</strong>.</p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-number">5</div>
+                <div class="timeline-content glass card" style="border-color: var(--primary); box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);">
+                    <h3><i class="uil uil-star"></i> Self-Healing</h3>
+                    <p>The key capability. If a test fails, the agent intercepts the failure. It classifies the exact error type (UI change, crash, timeout), automatically writes a code patch, rebuilds the APK if necessary, and retries <strong>automatically within guarded workflows</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Dive Self Healing -->
+    <section id="healing" class="container">
+        <div class="section-header reveal">
+            <h2>Pipeline Differentiator: <span class="gradient-text">Self-Healing</span></h2>
+            <p>Our autonomous pipeline does more than report bugs—it actively builds patches.</p>
+        </div>
+        
+        <div class="healing-section reveal">
+            <div>
+                <h3 style="font-size: 2.2rem; margin-bottom: 1.5rem;">A Closed-Loop Defect System</h3>
+                <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 1.5rem;">
+                    When a traditional pipeline fails, it creates a ticket and blocks delivery. 
+                    When <strong>AutoQure</strong> fails, it immediately activates the Self-Healing CLI.
+                </p>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; color: #f8fafc;">
+                    <li><i class="uil uil-check-circle" style="color: var(--accent); margin-right: 10px;"></i> <strong>Test Fix Engine:</strong> Rewrites incorrect selectors, adjusts timeouts, or updates scrolling logic.</li>
+                    <li><i class="uil uil-check-circle" style="color: var(--accent); margin-right: 10px;"></i> <strong>Crash Analyzer:</strong> If the app actually threw an Exception, the AI inspects the Kotlin code and proposes the fix.</li>
+                    <li><i class="uil uil-check-circle" style="color: var(--accent); margin-right: 10px;"></i> <strong>Sandbox Validation:</strong> Rebuilds the artifact and runs a verification step in a closed environment before declaring success.</li>
+                </ul>
+            </div>
+            <div class="healing-visual">
+                <div class="circle-path">
+                    <div class="node node-1"><i class="uil uil-times-circle"></i></div>
+                    <div class="node node-2"><i class="uil uil-search-alt"></i></div>
+                    <div class="node node-3"><i class="uil uil-wrench"></i></div>
+                    <div class="node node-4"><i class="uil uil-redo"></i></div>
+                </div>
+                <div class="center-ai"><i class="uil uil-robot"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stats -->
+    <section id="stats" class="container" style="min-height: auto; padding-bottom: 100px;">
+        <div class="glass card reveal" style="padding: 3rem;">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Program Reach & Milestones</h2>
+            <div class="stats-grid">
+                
+                <div class="stat-card">
+                    <h3>1</h3>
+                    <p>Generated Feature Proven E2E</p>
+                    <span class="subtext">On Target: 8 more in progress</span>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>3/3</h3>
+                    <p>Search Tests Validated</p>
+                    <span class="subtext">100% On-Device Pass Rate</span>
+                </div>
+
+                <div class="stat-card">
+                    <h3>2</h3>
+                    <p>Physical Devices Active</p>
+                    <span class="subtext">Samsung M12 Lab Integration</span>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>16+</h3>
+                    <p>Failure Categories Classified</p>
+                    <span class="subtext">Auto-handled edge cases</span>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>25+</h3>
+                    <p>Agent System Modules</p>
+                    <span class="subtext">70+ total architecture files</span>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>40+</h3>
+                    <p>Test Cases Mapped</p>
+                    <span class="subtext">Per analyzed app feature</span>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b;">
+        <p>AutoQure | AI-Driven Quality Assurance for Pocket Toons.</p>
+    </footer>
+
+    <script>
+        // Reveal Animations on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once to show hero element initially
+        reveal();
+    </script>
+</body>
+</html>
