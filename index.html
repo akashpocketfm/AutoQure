@@ -618,7 +618,7 @@
     <!-- Hero Section -->
     <section class="hero container reveal">
         <h1>Ensuring Quality via <br><span class="gradient-text">Autonomous AI Intelligence</span></h1>
-        <p>An AI-driven QA system that reads Pocket Toons code, generates test cases, runs them on real devices, and corrects failures through guarded workflows.</p>
+        <p>An AI-driven QA system that reads Pocket Toons code, generates coverage candidates, validates them through compile and quality gates, runs them on real devices, and corrects failures through guarded workflows.</p>
         <div>
             <a href="#comparison" class="btn btn-primary" style="margin-right: 15px;">Why AutoQure?</a>
             <a href="#architecture" class="btn">View System Flow</a>
@@ -651,7 +651,7 @@
                 <ul class="comp-list">
                     <li><i class="uil uil-file-alt"></i> AI organically generates tests directly from PRD specs and Source Code.</li>
                     <li><i class="uil uil-shield-check"></i> Resilient; dynamically self-heals selectors and timeouts on the fly.</li>
-                    <li><i class="uil uil-rocket"></i> Automatically scans and covers complete feature sets in minutes.</li>
+                    <li><i class="uil uil-rocket"></i> Automatically scans uncovered features and generates initial runnable coverage candidates.</li>
                     <li><i class="uil uil-wrench"></i> Autonomous Engine investigates failures and applies localized code patches.</li>
                 </ul>
             </div>
@@ -771,7 +771,7 @@
     <section id="healing" class="container">
         <div class="section-header reveal">
             <h2>Pipeline Differentiator: <span class="gradient-text">Self-Healing</span></h2>
-            <p>Our autonomous pipeline does more than report bugs—it actively builds patches.</p>
+            <p>Our autonomous pipeline does more than report bugs—it can generate and validate targeted patches.</p>
         </div>
         
         <div class="healing-section reveal">
@@ -802,13 +802,18 @@
     <!-- Success Stats -->
     <section id="stats" class="container" style="min-height: auto; padding-bottom: 100px;">
         <div class="glass card reveal" style="padding: 3rem;">
-            <h2 style="text-align: center; margin-bottom: 3rem;">Program Reach & Milestones</h2>
+            <h2 style="text-align: center; margin-bottom: 2rem;">Program Reach & Milestones</h2>
+            <div style="text-align: center; margin-bottom: 3.5rem;">
+                <span style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 50px; color: var(--accent); font-weight: 600; font-size: 1.05rem;">
+                    <i class="uil uil-check-circle" style="font-size: 1.3rem;"></i> Proven: Search feature executed end-to-end on physical device with 3/3 passing tests
+                </span>
+            </div>
             <div class="stats-grid">
                 
                 <div class="stat-card">
                     <h3>1</h3>
                     <p>Generated Feature Proven E2E</p>
-                    <span class="subtext">On Target: 8 more in progress</span>
+                    <span class="subtext">Next target: episode_nav hardening in progress</span>
                 </div>
                 
                 <div class="stat-card">
@@ -830,15 +835,15 @@
                 </div>
                 
                 <div class="stat-card">
-                    <h3>25+</h3>
-                    <p>Agent System Modules</p>
-                    <span class="subtext">70+ total architecture files</span>
+                    <h3>4</h3>
+                    <p>Pipeline Safeguards Added</p>
+                    <span class="subtext">Isolation, quality gate, compile gate, status reporting</span>
                 </div>
                 
                 <div class="stat-card">
                     <h3>40+</h3>
-                    <p>Test Cases Mapped</p>
-                    <span class="subtext">Per analyzed app feature</span>
+                    <p>Search Test Cases Generated</p>
+                    <span class="subtext">First feature proven end-to-end</span>
                 </div>
                 
             </div>
