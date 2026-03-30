@@ -675,13 +675,13 @@
         </div>
         <h1>Scaling QA via <br><span class="gradient">AI-Driven Automation</span></h1>
         <p>
-            AutoQure reads Pocket Toons source code, generates coverage candidates, validates them through quality and
-            compile gates,
-            runs them on real devices, and corrects failures through guarded workflows.
+            AutoQure reads Pocket Toons source code, generates coverage candidates, validates them through quality,
+            compile, and isolation gates, runs trusted smoke validation on real devices, and supports guarded recovery
+            when failures occur.
         </p>
         <div class="hero-actions">
             <a href="#proof" class="btn btn-primary"><i class="uil uil-check-circle"></i> What’s Proven</a>
-            <button class="btn" data-modal="search-proof"><i class="uil uil-file-search-alt"></i> Search Pilot
+            <button class="btn" data-modal="search-proof"><i class="uil uil-file-search-alt"></i> Validated Smoke
                 Proof</button>
             <button class="btn" data-modal="guardrails"><i class="uil uil-shield-check"></i> Reliability
                 Guardrails</button>
@@ -689,20 +689,20 @@
 
         <div class="proof-strip">
             <div class="proof-chip glass">
+                <strong>3</strong>
+                <span>Device-validated feature areas: search, episode navigation, and video playback</span>
+            </div>
+            <div class="proof-chip glass">
+                <strong>8/8</strong>
+                <span>Validated smoke suite passing on physical device</span>
+            </div>
+            <div class="proof-chip glass">
+                <strong>2</strong>
+                <span>Execution modes active: warm default, cold opt-in</span>
+            </div>
+            <div class="proof-chip glass">
                 <strong>1</strong>
-                <span>Feature fully proven end-to-end</span>
-            </div>
-            <div class="proof-chip glass">
-                <strong>3/3</strong>
-                <span>Search tests passing on physical device</span>
-            </div>
-            <div class="proof-chip glass">
-                <strong>4</strong>
-                <span>Pipeline safeguards added for trustworthy scale-up</span>
-            </div>
-            <div class="proof-chip glass">
-                <strong>9</strong>
-                <span>Target feature groups identified for expansion</span>
+                <span>Trial-ready smoke pack for internal build and patch validation</span>
             </div>
         </div>
     </section>
@@ -736,10 +736,10 @@
                 <ul>
                     <li><i class="uil uil-file-alt"></i><span>AI generates coverage candidates directly from specs and
                             source code.</span></li>
-                    <li><i class="uil uil-shield-check"></i><span>Generated output passes through quality and compile
-                            gates before execution.</span></li>
-                    <li><i class="uil uil-rocket"></i><span>Uncovered features can be scanned and converted into initial
-                            runnable coverage candidates.</span></li>
+                    <li><i class="uil uil-shield-check"></i><span>Generated output passes through quality, compile, and
+                            isolation gates before execution.</span></li>
+                    <li><i class="uil uil-rocket"></i><span>A validated smoke pack now supports controlled build and
+                            patch validation on real devices.</span></li>
                     <li><i class="uil uil-wrench"></i><span>The execution pipeline classifies failures and can apply
                             targeted fixes through guarded workflows.</span></li>
                 </ul>
@@ -823,13 +823,14 @@
                 <div class="step-body glass">
                     <h3><i class="uil uil-shield-check"></i> Validate</h3>
                     <p>
-                        Before any device execution, the orchestrator runs quality and compile gates. Only compile-safe
-                        generated classes are allowed into the runnable suite.
+                        Before any device execution, the orchestrator runs quality, compile, and isolation checks.
+                        Only trusted classes are allowed into the runnable suites, and excluded generated tests stay
+                        outside the Maven compile path.
                     </p>
                     <div class="tag-row">
                         <span class="tag">Quality gate</span>
                         <span class="tag">test-compile</span>
-                        <span class="tag">Run isolation</span>
+                        <span class="tag">Compile isolation</span>
                     </div>
                 </div>
             </div>
@@ -839,13 +840,13 @@
                 <div class="step-body glass">
                     <h3><i class="uil uil-mobile-android"></i> Execute</h3>
                     <p>
-                        The runner starts execution on physical Samsung devices, captures logs, and verifies whether
-                        generated tests behave correctly on real app states.
+                        The runner executes validated suites on physical Android devices, supports warm and cold state
+                        modes, captures logs, and produces shareable smoke reports for build and patch validation.
                     </p>
                     <div class="tag-row">
                         <span class="tag">Physical devices</span>
                         <span class="tag">TestNG</span>
-                        <span class="tag">Appium</span>
+                        <span class="tag">Warm / Cold modes</span>
                     </div>
                 </div>
             </div>
@@ -856,8 +857,8 @@
                     <h3><i class="uil uil-wrench"></i> Self-Heal</h3>
                     <p>
                         If a test fails, the pipeline classifies the failure type, attempts a guarded fix, rebuilds the
-                        APK when required, and retries automatically. Recent updates also isolate stale generated
-                        artifacts and exclude low-quality generated tests before execution.
+                        APK when required, and retries automatically. Shared bootstrap and content-resolution hardening
+                        now reduce repeatability gaps before healing is needed.
                     </p>
                     <div class="tag-row">
                         <span class="tag">Failure classification</span>
@@ -885,37 +886,37 @@
     <section id="proof" class="container">
         <div class="section-header">
             <h2>What’s Proven Today</h2>
-            <p>The current system is beyond concept stage. The Search pilot is already validated end-to-end on a
-                physical device.</p>
+            <p>The project is past pilot stage. AutoQure now has a validated smoke suite covering search, reader
+                navigation, and video playback on a physical device.</p>
         </div>
 
         <div class="grid-4">
             <div class="card glass">
                 <i class="uil uil-check-circle"></i>
-                <h3>Search Proven E2E</h3>
-                <p>Source → spec → generated/refined test → compile gate → device execution has been proven on the
-                    Search feature.</p>
+                <h3>Validated Smoke Pack</h3>
+                <p>Eight trusted tests now cover three validated feature areas: search, episode navigation, and video
+                    playback.</p>
             </div>
 
             <div class="card glass">
                 <i class="uil uil-mobile-vibrate"></i>
-                <h3>3/3 On-Device Pass</h3>
-                <p>Search suite currently passes on a physical Samsung M12 device, giving us a real proof point for the
-                    AutoQure execution loop.</p>
+                <h3>8/8 On-Device Pass</h3>
+                <p>The current smoke baseline has passed end-to-end on a physical Android device and is ready for
+                    controlled internal build and patch validation.</p>
             </div>
 
             <div class="card glass">
                 <i class="uil uil-lock-access"></i>
-                <h3>Safeguards Added</h3>
-                <p>Quality gate, compile gate, stale artifact isolation, and per-feature status reporting now control
-                    what becomes runnable.</p>
+                <h3>Operational Guardrails</h3>
+                <p>Quality gate, compile isolation, shared bootstrap, warm-state execution, and reporting now control
+                    what becomes runnable and repeatable.</p>
             </div>
 
             <div class="card glass">
                 <i class="uil uil-chart-line"></i>
-                <h3>Controlled Scale-Up</h3>
-                <p>The next step is not broad noisy generation. It is feature-by-feature hardening, starting with
-                    <strong>episode_nav</strong>.</p>
+                <h3>Controlled Expansion</h3>
+                <p>The next step is not a broad sweep. It is adding the next high-value validated feature, starting
+                    with <strong>profile</strong>, on top of the trusted smoke baseline.</p>
             </div>
         </div>
 
@@ -924,7 +925,7 @@
                 Dive</button>
             <button class="btn" data-modal="guardrails"><i class="uil uil-shield-check"></i> Reliability
                 Guardrails</button>
-            <button class="btn" data-modal="search-proof"><i class="uil uil-search-alt"></i> Search Pilot Proof</button>
+            <button class="btn" data-modal="search-proof"><i class="uil uil-search-alt"></i> Validated Smoke Proof</button>
             <button class="btn" data-modal="roadmap"><i class="uil uil-map"></i> Scale-Up Roadmap</button>
         </div>
     </section>
@@ -932,7 +933,7 @@
     <section class="container">
         <div class="section-header">
             <h2>Current System Status</h2>
-            <p>A simple view of what is active, proven, and currently being hardened.</p>
+            <p>A simple view of what is active, operational, and up next in the current AutoQure baseline.</p>
         </div>
 
         <div class="status-board">
@@ -943,29 +944,29 @@
             </div>
             <div class="status-card glass">
                 <div class="status-dot"></div>
-                <h4>AI Test Generation</h4>
+                <h4>Coverage Generation</h4>
                 <p>Active</p>
             </div>
             <div class="status-card glass">
                 <div class="status-dot"></div>
-                <h4>Compile Validation</h4>
+                <h4>Compile Isolation</h4>
                 <p>Active</p>
             </div>
             <div class="status-card glass">
                 <div class="status-dot"></div>
-                <h4>Real Device Execution</h4>
-                <p>Proven</p>
+                <h4>Smoke Validation</h4>
+                <p>Operational</p>
             </div>
             <div class="status-card glass">
                 <div class="status-dot"></div>
-                <h4>Self-Healing</h4>
-                <p>Integrated</p>
+                <h4>Warm-State Execution</h4>
+                <p>Default</p>
             </div>
             <div class="status-card glass">
                 <div class="status-dot" style="background: var(--warning); box-shadow: 0 0 16px rgba(245,158,11,0.65);">
                 </div>
-                <h4>Multi-Feature Hardening</h4>
-                <p>In Progress</p>
+                <h4>Next Hardening</h4>
+                <p>Profile</p>
             </div>
         </div>
     </section>
@@ -974,39 +975,40 @@
         <div class="glass card">
             <div class="section-header" style="margin-bottom: 24px;">
                 <h2>Program Reach & Milestones</h2>
-                <p>Current proof point: Search executed end-to-end through AutoQure and passed on a physical device.</p>
+                <p>Current proof point: a validated smoke suite now covers search, reader navigation, and video
+                    playback in a single end-to-end run.</p>
             </div>
 
             <div class="stats">
                 <div class="stat">
-                    <strong>1</strong>
-                    <p>Feature Proven E2E</p>
-                    <span>Search validated on physical device</span>
+                    <strong>3</strong>
+                    <p>Validated Features</p>
+                    <span>Search, episode_nav, video_player</span>
                 </div>
                 <div class="stat">
-                    <strong>3/3</strong>
-                    <p>Search Tests Passing</p>
-                    <span>End-to-end generated/refined flow</span>
+                    <strong>8/8</strong>
+                    <p>Smoke Suite Pass</p>
+                    <span>Trusted internal validation baseline</span>
+                </div>
+                <div class="stat">
+                    <strong>~23m</strong>
+                    <p>Smoke Runtime</p>
+                    <span>Fresh-install execution path</span>
                 </div>
                 <div class="stat">
                     <strong>2</strong>
-                    <p>Physical Devices Active</p>
-                    <span>Samsung M12 lab setup</span>
+                    <p>Active State Modes</p>
+                    <span>Warm default, cold opt-in</span>
                 </div>
                 <div class="stat">
-                    <strong>16+</strong>
-                    <p>Failure Categories</p>
-                    <span>Used by the healing pipeline</span>
+                    <strong>5</strong>
+                    <p>Core Guardrails</p>
+                    <span>Quality, compile, isolation, bootstrap, reporting</span>
                 </div>
                 <div class="stat">
-                    <strong>4</strong>
-                    <p>Pipeline Safeguards</p>
-                    <span>Isolation, quality, compile, reporting</span>
-                </div>
-                <div class="stat">
-                    <strong>9</strong>
-                    <p>Target Feature Groups</p>
-                    <span>Search proven, episode_nav next</span>
+                    <strong>1</strong>
+                    <p>Next Target</p>
+                    <span>Profile hardening</span>
                 </div>
             </div>
         </div>
@@ -1020,7 +1022,8 @@
         <div class="modal-card">
             <button class="close-btn" data-close>&times;</button>
             <h3>Architecture Deep Dive</h3>
-            <p>AutoQure is built as a layered system: intelligence, orchestration, execution, and healing.</p>
+            <p>AutoQure is now a layered QA system with generation, validation, smoke execution, and guarded recovery
+                working together.</p>
             <div class="detail-list">
                 <div class="detail-item">
                     <h4>1. Intelligence Layer</h4>
@@ -1035,13 +1038,19 @@
                     <ul>
                         <li><strong>run_autoqure_cycle.py</strong> manages exploration, generation, validation,
                             execution, and reporting.</li>
-                        <li>Generated output passes through quality and compile gates before it becomes runnable.</li>
+                        <li><strong>run_smoke_validation.py</strong> executes the validated smoke baseline for internal
+                            build and patch checks.</li>
+                        <li>Generated output passes through quality, compile, and isolation checks before it becomes
+                            runnable.</li>
                     </ul>
                 </div>
                 <div class="detail-item">
                     <h4>3. Execution Layer</h4>
                     <ul>
-                        <li>Appium + TestNG suites execute on physical Samsung devices.</li>
+                        <li>Appium + TestNG suites execute on physical Android devices using warm and cold state
+                            strategies.</li>
+                        <li>TestBootstrap provides shared overlay dismissal, feed recovery, and start-state handling
+                            across validated suites.</li>
                         <li>Execution logs, suite output, and feature-level reports are retained for traceability.</li>
                     </ul>
                 </div>
@@ -1067,31 +1076,33 @@
                     <h4>Quality Gate</h4>
                     <ul>
                         <li>Low-trust generated classes are screened before execution.</li>
-                        <li>Broken outputs are excluded instead of being treated as runnable coverage.</li>
+                        <li>TODO markers and placeholder-heavy outputs are rejected before they enter runnable suites.</li>
                     </ul>
                 </div>
                 <div class="detail-item">
-                    <h4>Compile Gate</h4>
+                    <h4>Compile Isolation</h4>
                     <ul>
                         <li>Generated classes must pass Maven <strong>test-compile</strong> before device execution.
                         </li>
-                        <li>This prevents invalid Java from reaching Appium runs.</li>
+                        <li>Excluded generated tests now live outside the Maven source tree, so broken generated code
+                            cannot poison validated suites.</li>
                     </ul>
                 </div>
                 <div class="detail-item">
-                    <h4>Isolation</h4>
+                    <h4>Shared Bootstrap</h4>
                     <ul>
-                        <li>Stale generated artifacts are prevented from contaminating targeted runs.</li>
-                        <li>This allows feature-by-feature hardening without unrelated failures poisoning the cycle.
+                        <li>Overlay dismissal and feed recovery are now centralized in <strong>TestBootstrap</strong>
+                            instead of duplicated across validated tests.</li>
+                        <li>This keeps smoke behavior consistent and reduces drift as new features are hardened.</li>
+                    </ul>
+                </div>
+                <div class="detail-item">
+                    <h4>Execution Modes & Reporting</h4>
+                    <ul>
+                        <li>Warm-state execution is now the default for smoke, with cold-state onboarding available as
+                            an explicit mode.</li>
+                        <li>Per-feature reporting keeps generated, runnable, and device-validated coverage measurable.
                         </li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Status Reporting</h4>
-                    <ul>
-                        <li>Per-feature reporting distinguishes generated, compile-safe, runnable, and device-validated
-                            states.</li>
-                        <li>This keeps AI output honest and measurable.</li>
                     </ul>
                 </div>
             </div>
@@ -1101,37 +1112,41 @@
     <div class="modal" id="search-proof-modal">
         <div class="modal-card">
             <button class="close-btn" data-close>&times;</button>
-            <h3>Search Pilot Proof</h3>
-            <p>The Search feature is the first fully proven AutoQure pilot.</p>
+            <h3>Validated Smoke Suite</h3>
+            <p>The project now has a trusted baseline smoke pack for controlled internal validation.</p>
             <div class="detail-list">
                 <div class="detail-item">
-                    <h4>What was proven</h4>
+                    <h4>Validated coverage</h4>
                     <ul>
-                        <li>Source scan and feature understanding</li>
-                        <li>Spec generation and test-case generation</li>
-                        <li>Java Appium test generation and refinement</li>
-                        <li>Compile-safe validation</li>
-                        <li>Real-device execution</li>
+                        <li><strong>Search</strong>: 3 tests covering navigation, query flow, and back navigation</li>
+                        <li><strong>Episode navigation</strong>: 3 tests covering modal open/close, list items, and
+                            selection</li>
+                        <li><strong>Video player</strong>: 2 tests covering player load and play/pause behavior</li>
                     </ul>
                 </div>
                 <div class="detail-item">
                     <h4>Outcome</h4>
                     <ul>
-                        <li><strong>3/3</strong> Search tests passing on physical device</li>
-                        <li>Execution loop validated end-to-end</li>
-                        <li>Search now serves as the pattern for hardening the next feature</li>
+                        <li><strong>8/8</strong> smoke tests passing on physical device</li>
+                        <li>End-to-end runtime is about <strong>21-23 minutes</strong> depending on fresh-install vs
+                            warm-state execution</li>
+                        <li>The suite now serves as the internal build and patch validation baseline</li>
                     </ul>
                 </div>
                 <div class="detail-item">
                     <h4>Why it matters</h4>
                     <ul>
-                        <li>This is the first proof that AutoQure is not just generating artifacts.</li>
-                        <li>It is generating, validating, and executing usable AI-assisted mobile coverage.</li>
+                        <li>This moves AutoQure from feature proof points to a trial-ready operational smoke workflow.</li>
+                        <li>It gives the team a small, trusted suite that can be run repeatedly while broader coverage
+                            keeps expanding.</li>
                     </ul>
                 </div>
             </div>
-            <div class="code-block">Source code -> feature spec -> structured test cases -> generated/refined SearchTest
-                -> test-compile -> physical device execution -> 3/3 pass</div>
+            <div class="code-block">Search (3) + Episode Nav (3) + Video Player (2)
+-> validated smoke suite
+-> build / patch validation workflow
+-> physical device execution
+-> 8/8 pass</div>
         </div>
     </div>
 
@@ -1142,24 +1157,27 @@
             <p>The current strategy is controlled expansion, not noisy broad generation.</p>
             <div class="detail-list">
                 <div class="detail-item">
-                    <h4>Stage 1: Proven</h4>
+                    <h4>Stage 1: Operational Baseline</h4>
                     <ul>
-                        <li>Search hardening complete</li>
-                        <li>Pipeline safeguards added</li>
+                        <li>Search, episode navigation, and video player are device-validated</li>
+                        <li>A trusted smoke baseline now exists for real build and patch validation</li>
                     </ul>
                 </div>
                 <div class="detail-item">
                     <h4>Stage 2: Hardening Now</h4>
                     <ul>
-                        <li>Episode navigation is the next candidate feature</li>
-                        <li>Goal is a small runnable suite with real device validation</li>
+                        <li>Profile is the next candidate feature because it is reachable, high-value, and not
+                            content-type dependent</li>
+                        <li>Warm-state execution remains the default path for fast, repeatable smoke validation</li>
                     </ul>
                 </div>
                 <div class="detail-item">
                     <h4>Stage 3: Controlled Expansion</h4>
                     <ul>
-                        <li>Adflow, wallet, payments, profile, downloads, unlock, and social follow in sequence</li>
-                        <li>Each feature is expected to pass through the same guarded pipeline</li>
+                        <li>Unlock follows when seeded account and config support are ready</li>
+                        <li>Broader features follow only when they pass through the same guarded validation pipeline</li>
+                        <li>Explorer-style automation comes later as a scale accelerator, not before adoption is solid
+                        </li>
                     </ul>
                 </div>
             </div>
