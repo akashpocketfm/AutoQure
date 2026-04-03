@@ -1,1319 +1,748 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AutoQure | AI-Driven QA for Pocket Toons</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <style>
-        :root {
-            --bg: #07111f;
-            --panel: rgba(255, 255, 255, 0.06);
-            --panel-2: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.12);
-            --text: #eef2ff;
-            --muted: #9fb0c7;
-            --primary: #5b7cff;
-            --secondary: #24c8a5;
-            --accent: #8b5cf6;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --success: #22c55e;
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-            --radius: 22px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background:
-                radial-gradient(circle at 10% 10%, rgba(91, 124, 255, 0.20), transparent 32%),
-                radial-gradient(circle at 90% 20%, rgba(139, 92, 246, 0.20), transparent 28%),
-                radial-gradient(circle at 60% 85%, rgba(36, 200, 165, 0.18), transparent 30%),
-                var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        .brand {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .container {
-            width: min(1180px, calc(100% - 40px));
-            margin: 0 auto;
-        }
-
-        .glass {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 30;
-            background: rgba(7, 17, 31, 0.72);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 74px;
-        }
-
-        .brand {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #ffffff, #8ab4ff, #97ffd1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 22px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #d5def0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            border-radius: 999px;
-            text-decoration: none;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: rgba(255, 255, 255, 0.06);
-            transition: 0.25s ease;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.96rem;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-        }
-
-        .btn-primary:hover {
-            filter: brightness(1.05);
-        }
-
-        .hero {
-            padding: 88px 0 48px;
-            text-align: center;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 999px;
-            padding: 8px 14px;
-            color: #c7d3ea;
-            font-size: 0.86rem;
-            background: rgba(255, 255, 255, 0.04);
-            margin-bottom: 22px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.9rem, 5vw, 5.2rem);
-            line-height: 1.05;
-            letter-spacing: -0.05em;
-            margin-bottom: 18px;
-        }
-
-        .gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #7fa7ff 45%, #79ffd7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            max-width: 900px;
-            margin: 0 auto 28px;
-            color: var(--muted);
-            font-size: 1.15rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-bottom: 28px;
-        }
-
-        .proof-strip {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            margin-top: 36px;
-        }
-
-        .proof-chip {
-            padding: 18px 16px;
-            text-align: left;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.045);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .proof-chip strong {
-            display: block;
-            font-size: 1.35rem;
-            margin-bottom: 4px;
-            color: white;
-        }
-
-        .proof-chip span {
-            color: var(--muted);
-            font-size: 0.93rem;
-        }
-
-        section {
-            padding: 44px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .section-header h2 {
-            font-size: clamp(2rem, 3vw, 3rem);
-            margin-bottom: 10px;
-        }
-
-        .section-header p {
-            color: var(--muted);
-            max-width: 860px;
-            margin: 0 auto;
-            font-size: 1.05rem;
-        }
-
-        .grid-3,
-        .grid-4,
-        .grid-2 {
-            display: grid;
-            gap: 18px;
-        }
-
-        .grid-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .grid-4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .card {
-            padding: 24px;
-            border-radius: var(--radius);
-            background: var(--panel);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-
-        .card i {
-            font-size: 2rem;
-            margin-bottom: 16px;
-            display: inline-block;
-            color: #9ac0ff;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
-
-        .card p,
-        .card li {
-            color: var(--muted);
-            font-size: 0.98rem;
-        }
-
-        .compare {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .compare .card ul {
-            list-style: none;
-            display: grid;
-            gap: 14px;
-            margin-top: 18px;
-        }
-
-        .compare .card li {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-        }
-
-        .compare .traditional {
-            background: rgba(239, 68, 68, 0.06);
-            border-color: rgba(239, 68, 68, 0.16);
-        }
-
-        .compare .autoqure {
-            background: rgba(34, 197, 94, 0.06);
-            border-color: rgba(34, 197, 94, 0.18);
-        }
-
-        .pipeline {
-            display: grid;
-            gap: 16px;
-        }
-
-        .step {
-            display: grid;
-            grid-template-columns: 88px 1fr;
-            gap: 16px;
-            align-items: stretch;
-        }
-
-        .step-num {
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 800;
-            min-height: 110px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .step-body {
-            padding: 24px;
-            border-radius: 24px;
-            background: var(--panel);
-            border: 1px solid var(--border);
-        }
-
-        .step-body h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 1.35rem;
-        }
-
-        .step-body p {
-            color: var(--muted);
-        }
-
-        .tag-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 14px;
-        }
-
-        .tag {
-            padding: 7px 12px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            color: #dce8ff;
-            font-size: 0.84rem;
-        }
-
-        .status-board {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 14px;
-        }
-
-        .status-card {
-            text-align: center;
-            padding: 18px 14px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin: 0 auto 10px;
-            background: var(--secondary);
-            box-shadow: 0 0 16px rgba(36, 200, 165, 0.7);
-        }
-
-        .status-card h4 {
-            font-size: 0.98rem;
-            margin-bottom: 6px;
-        }
-
-        .status-card p {
-            color: var(--muted);
-            font-size: 0.87rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 16px;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 22px 14px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-        }
-
-        .stat strong {
-            display: block;
-            font-size: 2.2rem;
-            margin-bottom: 6px;
-        }
-
-        .stat p {
-            color: var(--secondary);
-            text-transform: uppercase;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-        }
-
-        .stat span {
-            display: block;
-            margin-top: 6px;
-            color: #7f92ab;
-            font-size: 0.8rem;
-        }
-
-        .cta-bar {
-            margin-top: 26px;
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        footer {
-            padding: 28px 0 50px;
-            text-align: center;
-            color: #7f92ab;
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(2, 6, 23, 0.76);
-            backdrop-filter: blur(12px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-card {
-            width: min(960px, 100%);
-            max-height: 88vh;
-            overflow-y: auto;
-            border-radius: 28px;
-            background: #0c1627;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.45);
-            padding: 28px;
-            position: relative;
-        }
-
-        .modal-card h3 {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        .modal-card p {
-            color: var(--muted);
-            margin-bottom: 18px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            border: none;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .detail-list {
-            display: grid;
-            gap: 14px;
-            margin-top: 16px;
-        }
-
-        .detail-item {
-            padding: 18px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .detail-item h4 {
-            margin-bottom: 8px;
-            font-size: 1.05rem;
-        }
-
-        .detail-item ul {
-            padding-left: 18px;
-            color: var(--muted);
-        }
-
-        .detail-item li+li {
-            margin-top: 6px;
-        }
-
-        .code-block {
-            padding: 18px;
-            border-radius: 16px;
-            background: #07101d;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            overflow-x: auto;
-            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-            font-size: 0.9rem;
-            color: #d7e3f4;
-            line-height: 1.55;
-            white-space: pre-wrap;
-        }
-
-        @media (max-width: 1024px) {
-
-            .proof-strip,
-            .stats,
-            .status-board,
-            .grid-4 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .grid-3,
-            .grid-2,
-            .compare {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 720px) {
-            .nav-links {
-                display: none;
-            }
-
-            .proof-strip,
-            .stats,
-            .status-board {
-                grid-template-columns: 1fr;
-            }
-
-            .step {
-                grid-template-columns: 1fr;
-            }
-
-            .step-num {
-                min-height: 70px;
-            }
-
-            .hero {
-                padding-top: 58px;
-            }
-            
-            .pipeline-track {
-                left: 35px !important;
-            }
-        }
-
-        /* Interactive Cursor Glow */
-        .glass, .card, .step-body, .status-card, .stat, .proof-chip {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass::before, .card::before, .step-body::before, .status-card::before, .stat::before, .proof-chip::before {
-            content: "";
-            position: absolute;
-            top: var(--cursor-y, -100px);
-            left: var(--cursor-x, -100px);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(91, 124, 255, 0.15) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .glass:hover::before, .card:hover::before, .step-body:hover::before, .status-card:hover::before, .stat:hover::before, .proof-chip:hover::before {
-            opacity: 1;
-        }
-
-        .glass > *, .card > *, .step-body > *, .status-card > *, .stat > *, .proof-chip > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Interactive Pipeline Track */
-        .pipeline {
-            position: relative;
-        }
-
-        .pipeline-track {
-            position: absolute;
-            left: 42px;
-            top: 20px;
-            bottom: 20px;
-            width: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            z-index: 0;
-            border-radius: 4px;
-        }
-        
-        .pipeline-progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(36, 200, 165, 0.5);
-            transition: height 0.1s ease-out;
-        }
-
-        .step {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .step-num {
-            transition: all 0.3s ease;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoQure | Pocket Toons QA Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09131a;
+      --bg-2: #0f1f29;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.1);
+      --border: rgba(255,255,255,0.12);
+      --text: #ecf6f7;
+      --muted: #9fb6bc;
+      --teal: #46d3b2;
+      --cyan: #5ec6ff;
+      --amber: #ffbf54;
+      --red: #ff6d6d;
+      --shadow: 0 24px 60px rgba(0,0,0,0.28);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(94,198,255,0.18), transparent 28%),
+        radial-gradient(circle at 84% 14%, rgba(70,211,178,0.16), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(255,191,84,0.10), transparent 32%),
+        linear-gradient(180deg, var(--bg) 0%, #071017 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand, .metric strong, .suite-tag {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 19, 26, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      min-height: 74px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #f8ffff;
+    }
+
+    .brand span {
+      color: var(--teal);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #d5e7ea;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: white;
+      background: rgba(255,255,255,0.07);
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), var(--cyan));
+      color: #06222a;
+      border: none;
+    }
+
+    .hero {
+      padding: 88px 0 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: #cce7e2;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      padding: 32px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: var(--teal);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 1.08rem;
+      margin-bottom: 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .hero-note {
+      color: #c6d6d9;
+      font-size: 0.95rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding: 20px;
+    }
+
+    .metric {
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      min-height: 132px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    section { padding: 44px 0; }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      max-width: 820px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      padding: 24px;
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #d7edef;
+      font-size: 0.82rem;
+    }
+
+    .suite-card {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .suite-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .suite-tag {
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: #d8eff0;
+    }
+
+    .suite-tag.trusted { background: rgba(70,211,178,0.16); color: #9bf0dd; }
+    .suite-tag.payment { background: rgba(255,191,84,0.16); color: #ffd891; }
+    .suite-tag.blocked { background: rgba(255,109,109,0.14); color: #ffb0b0; }
+
+    .suite-stats {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .feature-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .feature-item strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .feature-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .count {
+      min-width: 82px;
+      text-align: right;
+      color: #dff9fb;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 23px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      align-items: start;
+      position: relative;
+    }
+
+    .dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--teal), var(--cyan));
+      color: #082027;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(70,211,178,0.28);
+      z-index: 1;
+    }
+
+    .step-body {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .step-body h3 { margin-bottom: 8px; }
+    .step-body p { color: var(--muted); }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .status {
+      padding: 22px 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .status strong {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .status p { color: var(--muted); }
+
+    .risk-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .risk-list li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+    }
+
+    .code-block {
+      padding: 18px;
+      border-radius: 18px;
+      background: #071018;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #d8ebee;
+      white-space: pre-wrap;
+    }
+
+    footer {
+      padding: 30px 0 48px;
+      text-align: center;
+      color: #8da6ad;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid, .grid-2, .grid-3, .grid-4, .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .metrics { grid-template-columns: 1fr; }
+      .feature-item { flex-direction: column; }
+      .count { text-align: left; }
+      .hero { padding-top: 58px; }
+    }
+  </style>
 </head>
-
 <body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand">Auto<span>Qure</span></div>
+      <div class="nav-links">
+        <a href="#coverage">Coverage</a>
+        <a href="#suites">Suites</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#blockers">Blockers</a>
+        <a href="#next" class="btn btn-primary">Current State</a>
+      </div>
+    </div>
+  </nav>
 
-    <nav>
-        <div class="container nav-inner">
-            <div class="brand">AutoQure</div>
-            <div class="nav-links">
-                <a href="#problem">Why Now</a>
-                <a href="#system">System</a>
-                <a href="#proof">Proof</a>
-                <a href="#roadmap">Next</a>
-                <a href="#details" class="btn btn-primary">Explore Details</a>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero container">
-        <div class="eyebrow">
-            <i class="uil uil-robot"></i>
-            AI-Driven QA Platform for Pocket Toons
-        </div>
-        <h1>Scaling QA via <br><span class="gradient">AI-Driven Automation</span></h1>
+  <section class="hero container">
+    <div class="eyebrow">Pocket Toons QA platform built on Appium, real devices, seeded auth, and guarded AI workflows</div>
+    <div class="hero-grid">
+      <div class="hero-copy glass">
+        <h1>AutoQure now covers <span>real app breadth</span>, not just a pilot</h1>
         <p>
-            AutoQure reads Pocket Toons source code, generates coverage candidates, validates them through quality,
-            compile, and isolation gates, runs trusted smoke validation on real devices, and supports guarded recovery
-            when failures occur.
+          We have moved from a single validated Search pilot into a broader Pocket Toons automation platform with trusted smoke coverage,
+          sandboxed monetization validation, seeded account handling, feature specs, generated case pools, and real-device execution on Samsung hardware.
         </p>
         <div class="hero-actions">
-            <a href="#proof" class="btn btn-primary"><i class="uil uil-check-circle"></i> What’s Proven</a>
-            <button class="btn" data-modal="search-proof"><i class="uil uil-file-search-alt"></i> Validated Smoke
-                Proof</button>
-            <button class="btn" data-modal="guardrails"><i class="uil uil-shield-check"></i> Reliability
-                Guardrails</button>
+          <a class="btn btn-primary" href="#suites">See Active Suites</a>
+          <a class="btn" href="#coverage">See Covered Features</a>
         </div>
-
-        <div class="proof-strip">
-            <div class="proof-chip glass">
-                <strong>3</strong>
-                <span>Device-validated feature areas: search, episode navigation, and video playback</span>
-            </div>
-            <div class="proof-chip glass">
-                <strong>8/8</strong>
-                <span>Validated smoke suite passing on physical device</span>
-            </div>
-            <div class="proof-chip glass">
-                <strong>2</strong>
-                <span>Execution modes active: warm default, cold opt-in</span>
-            </div>
-            <div class="proof-chip glass">
-                <strong>1</strong>
-                <span>Trial-ready smoke pack for internal build and patch validation</span>
-            </div>
+        <div class="hero-note">
+          Current branch reality: 7 trusted smoke features + 1 dedicated payment sandbox flow, with additional blocked features already implemented in code and waiting on deterministic content fixtures.
         </div>
-    </section>
+      </div>
 
-    <section id="problem" class="container">
-        <div class="section-header">
-            <h2>The Automation Paradigm Shift</h2>
-            <p>
-                AutoQure is designed to move QA away from slow, brittle feature-by-feature scripting toward guarded
-                AI-assisted coverage generation and recovery.
-            </p>
+      <div class="metrics glass">
+        <div class="metric">
+          <strong>8</strong>
+          <span>Active covered feature areas across promoted suites</span>
         </div>
-
-        <div class="compare">
-            <div class="card traditional">
-                <h3><i class="uil uil-times-circle"></i> Standard Automation</h3>
-                <ul>
-                    <li><i class="uil uil-user"></i><span>Engineers manually write Appium tests flow by flow.</span>
-                    </li>
-                    <li><i class="uil uil-link-broken"></i><span>Minor UI changes can break selectors and destabilize
-                            suites.</span></li>
-                    <li><i class="uil uil-hourglass"></i><span>Expanding coverage to new features takes significant
-                            manual effort.</span></li>
-                    <li><i class="uil uil-bug"></i><span>Failures still require humans to investigate before any fix can
-                            begin.</span></li>
-                </ul>
-            </div>
-
-            <div class="card autoqure">
-                <h3><i class="uil uil-brain"></i> AutoQure System</h3>
-                <ul>
-                    <li><i class="uil uil-file-alt"></i><span>AI generates coverage candidates directly from specs and
-                            source code.</span></li>
-                    <li><i class="uil uil-shield-check"></i><span>Generated output passes through quality, compile, and
-                            isolation gates before execution.</span></li>
-                    <li><i class="uil uil-rocket"></i><span>A validated smoke pack now supports controlled build and
-                            patch validation on real devices.</span></li>
-                    <li><i class="uil uil-wrench"></i><span>The execution pipeline classifies failures and can apply
-                            targeted fixes through guarded workflows.</span></li>
-                </ul>
-            </div>
+        <div class="metric">
+          <strong>20</strong>
+          <span>Promoted Appium test cases: 19 trusted smoke + 1 payment sandbox</span>
         </div>
-    </section>
-
-    <section id="system" class="container">
-        <div class="section-header">
-            <h2>The System We’ve Built</h2>
-            <p>Intelligence, execution, and healing are now connected in a single QA pipeline.</p>
+        <div class="metric">
+          <strong>27</strong>
+          <span>Written generated feature tests including blocked surfaces</span>
         </div>
-
-        <div class="grid-3">
-            <div class="card glass">
-                <i class="uil uil-brain"></i>
-                <h3>Claude-Powered Intelligence</h3>
-                <p>The system integrates with Claude to interpret source, layouts, and feature behavior, reducing manual
-                    scripting effort during coverage expansion.</p>
-            </div>
-
-            <div class="card glass">
-                <i class="uil uil-file-search-alt"></i>
-                <h3>Source-to-Spec Generation</h3>
-                <p>An auto-discovery engine reads Kotlin source and layout XML, builds feature specs, and uses
-                    page-object context to generate Java Appium coverage.</p>
-            </div>
-
-            <div class="card glass">
-                <i class="uil uil-sync"></i>
-                <h3>Self-Healing Execution</h3>
-                <p>When the app or UI changes, AutoQure classifies failures, applies guarded fixes where possible, and
-                    retries through the existing healing pipeline.</p>
-            </div>
+        <div class="metric">
+          <strong>450</strong>
+          <span>Generated candidate cases across 9 feature pools</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="container">
-        <div class="section-header">
-            <h2>The Data Flow Pipeline</h2>
-            <p>How AutoQure currently processes a feature from app source to device-validated execution.</p>
-        </div>
-
-        <div class="pipeline">
-            <div class="pipeline-track"><div class="pipeline-progress" id="pipeline-progress"></div></div>
-            <div class="step">
-                <div class="step-num">1</div>
-                <div class="step-body glass">
-                    <h3><i class="uil uil-search"></i> Explore</h3>
-                    <p>
-                        The App Explorer scans Android source and layout XML, identifies uncovered features, and creates
-                        feature-level specs from the codebase.
-                    </p>
-                    <div class="tag-row">
-                        <span class="tag">Kotlin source</span>
-                        <span class="tag">Layout XML</span>
-                        <span class="tag">Feature grouping</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">2</div>
-                <div class="step-body glass">
-                    <h3><i class="uil uil-file-edit-alt"></i> Generate</h3>
-                    <p>
-                        The PRD Parser converts specs into structured test cases. Claude then generates Java Appium
-                        tests using page-object context, and each method is confidence-scored so low-trust output can be
-                        flagged early.
-                    </p>
-                    <div class="tag-row">
-                        <span class="tag">PRD parser</span>
-                        <span class="tag">Confidence scoring</span>
-                        <span class="tag">Generated Java tests</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">3</div>
-                <div class="step-body glass">
-                    <h3><i class="uil uil-shield-check"></i> Validate</h3>
-                    <p>
-                        Before any device execution, the orchestrator runs quality, compile, and isolation checks.
-                        Only trusted classes are allowed into the runnable suites, and excluded generated tests stay
-                        outside the Maven compile path.
-                    </p>
-                    <div class="tag-row">
-                        <span class="tag">Quality gate</span>
-                        <span class="tag">test-compile</span>
-                        <span class="tag">Compile isolation</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">4</div>
-                <div class="step-body glass">
-                    <h3><i class="uil uil-mobile-android"></i> Execute</h3>
-                    <p>
-                        The runner executes validated suites on physical Android devices, supports warm and cold state
-                        modes, captures logs, and produces shareable smoke reports for build and patch validation.
-                    </p>
-                    <div class="tag-row">
-                        <span class="tag">Physical devices</span>
-                        <span class="tag">TestNG</span>
-                        <span class="tag">Warm / Cold modes</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">5</div>
-                <div class="step-body glass">
-                    <h3><i class="uil uil-wrench"></i> Self-Heal</h3>
-                    <p>
-                        If a test fails, the pipeline classifies the failure type, attempts a guarded fix, rebuilds the
-                        APK when required, and retries automatically. Shared bootstrap and content-resolution hardening
-                        now reduce repeatability gaps before healing is needed.
-                    </p>
-                    <div class="tag-row">
-                        <span class="tag">Failure classification</span>
-                        <span class="tag">Patch generation</span>
-                        <span class="tag">Rebuild + retry</span>
-                    </div>
-                    
-                    <!-- Sandbox Demo -->
-                    <div style="margin-top: 24px; padding: 18px; background: rgba(0,0,0,0.2); border-radius: 14px; border: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
-                        <div style="display: flex; align-items: center; gap: 12px; position: relative;">
-                            <div id="heal-node" style="min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;"><i class="uil uil-mobile-android"></i></div>
-                            <div style="width: 60px; height: 2px; background: rgba(255,255,255,0.1); position: relative; z-index: 1;">
-                                <div id="heal-beam" style="height: 100%; width: 0%; background: var(--primary); box-shadow: 0 0 10px var(--primary); transition: width 0.5s;"></div>
-                            </div>
-                            <div id="heal-ai" style="min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;"><i class="uil uil-brain"></i></div>
-                        </div>
-                        <button class="btn btn-primary" id="btn-trigger-heal" style="font-size: 0.85rem; padding: 8px 16px; border-radius: 8px;">Trigger Crash</button>
-                    </div>
-                    <div id="heal-log" style="margin-top: 12px; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.85rem; color: var(--danger); min-height: 20px;"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="proof" class="container">
-        <div class="section-header">
-            <h2>What’s Proven Today</h2>
-            <p>The project is past pilot stage. AutoQure now has a validated smoke suite covering search, reader
-                navigation, and video playback on a physical device.</p>
-        </div>
-
-        <div class="grid-4">
-            <div class="card glass">
-                <i class="uil uil-check-circle"></i>
-                <h3>Validated Smoke Pack</h3>
-                <p>Eight trusted tests now cover three validated feature areas: search, episode navigation, and video
-                    playback.</p>
-            </div>
-
-            <div class="card glass">
-                <i class="uil uil-mobile-vibrate"></i>
-                <h3>8/8 On-Device Pass</h3>
-                <p>The current smoke baseline has passed end-to-end on a physical Android device and is ready for
-                    controlled internal build and patch validation.</p>
-            </div>
-
-            <div class="card glass">
-                <i class="uil uil-lock-access"></i>
-                <h3>Operational Guardrails</h3>
-                <p>Quality gate, compile isolation, shared bootstrap, warm-state execution, and reporting now control
-                    what becomes runnable and repeatable.</p>
-            </div>
-
-            <div class="card glass">
-                <i class="uil uil-chart-line"></i>
-                <h3>Controlled Expansion</h3>
-                <p>The next step is not a broad sweep. It is adding the next high-value validated feature, starting
-                    with <strong>profile</strong>, on top of the trusted smoke baseline.</p>
-            </div>
-        </div>
-
-        <div class="cta-bar" id="details">
-            <button class="btn btn-primary" data-modal="architecture"><i class="uil uil-sitemap"></i> Architecture Deep
-                Dive</button>
-            <button class="btn" data-modal="guardrails"><i class="uil uil-shield-check"></i> Reliability
-                Guardrails</button>
-            <button class="btn" data-modal="search-proof"><i class="uil uil-search-alt"></i> Validated Smoke Proof</button>
-            <button class="btn" data-modal="roadmap"><i class="uil uil-map"></i> Scale-Up Roadmap</button>
-        </div>
-    </section>
-
-    <section class="container">
-        <div class="section-header">
-            <h2>Current System Status</h2>
-            <p>A simple view of what is active, operational, and up next in the current AutoQure baseline.</p>
-        </div>
-
-        <div class="status-board">
-            <div class="status-card glass">
-                <div class="status-dot"></div>
-                <h4>Feature Discovery</h4>
-                <p>Active</p>
-            </div>
-            <div class="status-card glass">
-                <div class="status-dot"></div>
-                <h4>Coverage Generation</h4>
-                <p>Active</p>
-            </div>
-            <div class="status-card glass">
-                <div class="status-dot"></div>
-                <h4>Compile Isolation</h4>
-                <p>Active</p>
-            </div>
-            <div class="status-card glass">
-                <div class="status-dot"></div>
-                <h4>Smoke Validation</h4>
-                <p>Operational</p>
-            </div>
-            <div class="status-card glass">
-                <div class="status-dot"></div>
-                <h4>Warm-State Execution</h4>
-                <p>Default</p>
-            </div>
-            <div class="status-card glass">
-                <div class="status-dot" style="background: var(--warning); box-shadow: 0 0 16px rgba(245,158,11,0.65);">
-                </div>
-                <h4>Next Hardening</h4>
-                <p>Profile</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap" class="container">
-        <div class="glass card">
-            <div class="section-header" style="margin-bottom: 24px;">
-                <h2>Program Reach & Milestones</h2>
-                <p>Current proof point: a validated smoke suite now covers search, reader navigation, and video
-                    playback in a single end-to-end run.</p>
-            </div>
-
-            <div class="stats">
-                <div class="stat">
-                    <strong>3</strong>
-                    <p>Validated Features</p>
-                    <span>Search, episode_nav, video_player</span>
-                </div>
-                <div class="stat">
-                    <strong>8/8</strong>
-                    <p>Smoke Suite Pass</p>
-                    <span>Trusted internal validation baseline</span>
-                </div>
-                <div class="stat">
-                    <strong>~23m</strong>
-                    <p>Smoke Runtime</p>
-                    <span>Fresh-install execution path</span>
-                </div>
-                <div class="stat">
-                    <strong>2</strong>
-                    <p>Active State Modes</p>
-                    <span>Warm default, cold opt-in</span>
-                </div>
-                <div class="stat">
-                    <strong>5</strong>
-                    <p>Core Guardrails</p>
-                    <span>Quality, compile, isolation, bootstrap, reporting</span>
-                </div>
-                <div class="stat">
-                    <strong>1</strong>
-                    <p>Next Target</p>
-                    <span>Profile hardening</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="container">
-        AutoQure | AI-Driven Quality Assurance for Pocket Toons
-    </footer>
-
-    <div class="modal" id="architecture-modal">
-        <div class="modal-card">
-            <button class="close-btn" data-close>&times;</button>
-            <h3>Architecture Deep Dive</h3>
-            <p>AutoQure is now a layered QA system with generation, validation, smoke execution, and guarded recovery
-                working together.</p>
-            <div class="detail-list">
-                <div class="detail-item">
-                    <h4>1. Intelligence Layer</h4>
-                    <ul>
-                        <li>App Explorer scans Android source and layout XML.</li>
-                        <li>PRD Parser converts specs into structured test cases.</li>
-                        <li>AI Code Generator creates Java Appium tests with confidence-scored methods.</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>2. Orchestration Layer</h4>
-                    <ul>
-                        <li><strong>run_autoqure_cycle.py</strong> manages exploration, generation, validation,
-                            execution, and reporting.</li>
-                        <li><strong>run_smoke_validation.py</strong> executes the validated smoke baseline for internal
-                            build and patch checks.</li>
-                        <li>Generated output passes through quality, compile, and isolation checks before it becomes
-                            runnable.</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>3. Execution Layer</h4>
-                    <ul>
-                        <li>Appium + TestNG suites execute on physical Android devices using warm and cold state
-                            strategies.</li>
-                        <li>TestBootstrap provides shared overlay dismissal, feed recovery, and start-state handling
-                            across validated suites.</li>
-                        <li>Execution logs, suite output, and feature-level reports are retained for traceability.</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>4. Healing Layer</h4>
-                    <ul>
-                        <li>Failures are classified by type.</li>
-                        <li>Targeted fixes can be generated for selectors, waits, or app code paths.</li>
-                        <li>APK rebuild and retry are handled within guarded workflows.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <section id="coverage" class="container">
+    <div class="section-head">
+      <h2>Current Feature Coverage</h2>
+      <p>These are the feature areas already represented in the current Appium system, split between promoted coverage and blocked-but-started work.</p>
     </div>
 
-    <div class="modal" id="guardrails-modal">
-        <div class="modal-card">
-            <button class="close-btn" data-close>&times;</button>
-            <h3>Reliability Guardrails</h3>
-            <p>Recent work focused on making the AI pipeline trustworthy, not just productive.</p>
-            <div class="detail-list">
-                <div class="detail-item">
-                    <h4>Quality Gate</h4>
-                    <ul>
-                        <li>Low-trust generated classes are screened before execution.</li>
-                        <li>TODO markers and placeholder-heavy outputs are rejected before they enter runnable suites.</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Compile Isolation</h4>
-                    <ul>
-                        <li>Generated classes must pass Maven <strong>test-compile</strong> before device execution.
-                        </li>
-                        <li>Excluded generated tests now live outside the Maven source tree, so broken generated code
-                            cannot poison validated suites.</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Shared Bootstrap</h4>
-                    <ul>
-                        <li>Overlay dismissal and feed recovery are now centralized in <strong>TestBootstrap</strong>
-                            instead of duplicated across validated tests.</li>
-                        <li>This keeps smoke behavior consistent and reduces drift as new features are hardened.</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Execution Modes & Reporting</h4>
-                    <ul>
-                        <li>Warm-state execution is now the default for smoke, with cold-state onboarding available as
-                            an explicit mode.</li>
-                        <li>Per-feature reporting keeps generated, runnable, and device-validated coverage measurable.
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <div class="grid-2">
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Promoted Coverage</h3>
+          <span class="suite-tag trusted">Validated</span>
         </div>
+        <div class="suite-stats">These are the feature areas currently wired into active suites.</div>
+        <div class="feature-list">
+          <div class="feature-item"><div><strong>Search</strong><span>Navigation, query execution, search UI state</span></div><div class="count">3 tests</div></div>
+          <div class="feature-item"><div><strong>Episode Navigation</strong><span>Episode modal, chapter list, selection response</span></div><div class="count">3 tests</div></div>
+          <div class="feature-item"><div><strong>Video Player</strong><span>Player load plus play/pause controls</span></div><div class="count">2 tests</div></div>
+          <div class="feature-item"><div><strong>Wallet / My Store</strong><span>Store load, balance visibility, back navigation</span></div><div class="count">3 tests</div></div>
+          <div class="feature-item"><div><strong>Profile</strong><span>Seeded login profile load, key elements, back flow</span></div><div class="count">3 tests</div></div>
+          <div class="feature-item"><div><strong>Library</strong><span>My Library tab, content presence, back flow</span></div><div class="count">3 tests</div></div>
+          <div class="feature-item"><div><strong>Language</strong><span>Language selector sheet load and dismissal</span></div><div class="count">2 tests</div></div>
+          <div class="feature-item"><div><strong>Payments Sandbox</strong><span>Google Play test-card purchase with balance delta validation</span></div><div class="count">1 test</div></div>
+        </div>
+      </div>
+
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Implemented But Blocked</h3>
+          <span class="suite-tag blocked">Needs Fixture</span>
+        </div>
+        <div class="suite-stats">These flows already exist in code but are not promoted because the runtime path is not deterministic yet.</div>
+        <div class="feature-list">
+          <div class="feature-item"><div><strong>Social</strong><span>Comments widget path exists, but reliable comments content is not consistently available</span></div><div class="count">2 tests</div></div>
+          <div class="feature-item"><div><strong>Unlock</strong><span>Unlock sheet tests exist, but deterministic locked content is still missing</span></div><div class="count">2 tests</div></div>
+          <div class="feature-item"><div><strong>Show Detail</strong><span>Tests written, but detail page navigation path is not consistently reachable from current UI flows</span></div><div class="count">3 tests</div></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Blocked by content availability</span>
+          <span class="pill">Not blocked by missing framework code</span>
+          <span class="pill">Ready to resume once fixtures are fixed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="suites" class="container">
+    <div class="section-head">
+      <h2>Active Suite Structure</h2>
+      <p>The project has now moved into a two-track structure: trusted smoke for repeatable app validation, and sandbox monetization for payment verification.</p>
     </div>
 
-    <div class="modal" id="search-proof-modal">
-        <div class="modal-card">
-            <button class="close-btn" data-close>&times;</button>
-            <h3>Validated Smoke Suite</h3>
-            <p>The project now has a trusted baseline smoke pack for controlled internal validation.</p>
-            <div class="detail-list">
-                <div class="detail-item">
-                    <h4>Validated coverage</h4>
-                    <ul>
-                        <li><strong>Search</strong>: 3 tests covering navigation, query flow, and back navigation</li>
-                        <li><strong>Episode navigation</strong>: 3 tests covering modal open/close, list items, and
-                            selection</li>
-                        <li><strong>Video player</strong>: 2 tests covering player load and play/pause behavior</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Outcome</h4>
-                    <ul>
-                        <li><strong>8/8</strong> smoke tests passing on physical device</li>
-                        <li>End-to-end runtime is about <strong>21-23 minutes</strong> depending on fresh-install vs
-                            warm-state execution</li>
-                        <li>The suite now serves as the internal build and patch validation baseline</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Why it matters</h4>
-                    <ul>
-                        <li>This moves AutoQure from feature proof points to a trial-ready operational smoke workflow.</li>
-                        <li>It gives the team a small, trusted suite that can be run repeatedly while broader coverage
-                            keeps expanding.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="code-block">Search (3) + Episode Nav (3) + Video Player (2)
--> validated smoke suite
--> build / patch validation workflow
--> physical device execution
--> 8/8 pass</div>
+    <div class="grid-2">
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Trusted Smoke Suite</h3>
+          <span class="suite-tag trusted">7 features / 19 tests</span>
         </div>
+        <div class="suite-stats">Main suite: search, episode_nav, video_player, wallet, library, language, profile.</div>
+        <p style="color: var(--muted);">
+          This is the current broad validation baseline for Pocket Toons on Android. It mixes warm flows and seeded-auth profile flow and is meant to represent trustworthy repeatable coverage on a real Samsung device.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Real device execution</span>
+          <span class="pill">UiAutomator2 cleanup built in</span>
+          <span class="pill">Seeded account aware</span>
+          <span class="pill">Feature-based reporting</span>
+        </div>
+      </div>
+
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Payment Sandbox Suite</h3>
+          <span class="suite-tag payment">1 monetization flow</span>
+        </div>
+        <div class="suite-stats">Dedicated suite for Google Play sandbox purchase validation using a single protected seeded payment account.</div>
+        <p style="color: var(--muted);">
+          This flow opens My Store, captures starting balance, selects a visible paid plan, handles login and checkout chooser, completes the Google Play test-card purchase, and verifies that the balance increases after purchase.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Sandbox-only user</span>
+          <span class="pill">Google Play test card</span>
+          <span class="pill">Balance delta assertion</span>
+          <span class="pill">Separate from core smoke</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pipeline" class="container">
+    <div class="section-head">
+      <h2>What The System Now Does</h2>
+      <p>This is no longer just test generation. The current project has a real source-to-device QA pipeline with feature promotion, reporting, and guarded monetization coverage.</p>
     </div>
 
-    <div class="modal" id="roadmap-modal">
-        <div class="modal-card">
-            <button class="close-btn" data-close>&times;</button>
-            <h3>Scale-Up Roadmap</h3>
-            <p>The current strategy is controlled expansion, not noisy broad generation.</p>
-            <div class="detail-list">
-                <div class="detail-item">
-                    <h4>Stage 1: Operational Baseline</h4>
-                    <ul>
-                        <li>Search, episode navigation, and video player are device-validated</li>
-                        <li>A trusted smoke baseline now exists for real build and patch validation</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Stage 2: Hardening Now</h4>
-                    <ul>
-                        <li>Profile is the next candidate feature because it is reachable, high-value, and not
-                            content-type dependent</li>
-                        <li>Warm-state execution remains the default path for fast, repeatable smoke validation</li>
-                    </ul>
-                </div>
-                <div class="detail-item">
-                    <h4>Stage 3: Controlled Expansion</h4>
-                    <ul>
-                        <li>Unlock follows when seeded account and config support are ready</li>
-                        <li>Broader features follow only when they pass through the same guarded validation pipeline</li>
-                        <li>Explorer-style automation comes later as a scale accelerator, not before adoption is solid
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="dot">1</div>
+        <div class="step-body glass">
+          <h3>Explore Source and Layouts</h3>
+          <p>App Explorer and feature analysis scan Kotlin, layout XMLs, navigation paths, and visible UI IDs to discover feature surfaces and generate screen-level specs.</p>
         </div>
+      </div>
+      <div class="step">
+        <div class="dot">2</div>
+        <div class="step-body glass">
+          <h3>Generate Candidate Coverage</h3>
+          <p>Specs are converted into candidate test pools. Today the project has 50 generated cases each across search, episode_nav, wallet, payments, profile, social, unlock, downloads, and adflow.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="dot">3</div>
+        <div class="step-body glass">
+          <h3>Refine Into Real Page Objects and Tests</h3>
+          <p>High-value features are translated into real page objects, refined Java Appium tests, and execution-specific helpers such as ContentResolver and TestBootstrap.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="dot">4</div>
+        <div class="step-body glass">
+          <h3>Execute On Real Devices</h3>
+          <p>The runner executes against physical Samsung devices, including automated UiAutomator2 recovery for the Samsung M12 instability that showed up during scale-up.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="dot">5</div>
+        <div class="step-body glass">
+          <h3>Protect Sensitive Flows</h3>
+          <p>Payment is isolated into a separate seeded sandbox flow, while other seeded capabilities like profile run through explicit account-state handling. This is the project pattern for future monetization and unlock coverage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Project Numbers</h2>
+      <p>The active Appium automation system is already a substantial codebase and no longer a small prototype.</p>
     </div>
 
-    <script>
-        const modalMap = {
-            architecture: document.getElementById('architecture-modal'),
-            guardrails: document.getElementById('guardrails-modal'),
-            'search-proof': document.getElementById('search-proof-modal'),
-            roadmap: document.getElementById('roadmap-modal')
-        };
+    <div class="status-grid">
+      <div class="status glass">
+        <strong>5,345</strong>
+        <p>Lines in Appium main Java framework and page objects</p>
+      </div>
+      <div class="status glass">
+        <strong>3,122</strong>
+        <p>Lines in Appium test Java code</p>
+      </div>
+      <div class="status glass">
+        <strong>16,747</strong>
+        <p>Lines in supporting scripts for orchestration, smoke, and healing</p>
+      </div>
+      <div class="status glass">
+        <strong>59k+</strong>
+        <p>Lines of reports and generated AutoQure cycle artifacts supporting feature expansion</p>
+      </div>
+    </div>
+  </section>
 
-        document.querySelectorAll('[data-modal]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const modal = modalMap[btn.dataset.modal];
-                if (modal) modal.classList.add('active');
-            });
-        });
+  <section id="blockers" class="container">
+    <div class="section-head">
+      <h2>Current Blockers and Honest Constraints</h2>
+      <p>The project is broad now, but not every implemented surface is promotion-ready. These are the real remaining constraints.</p>
+    </div>
 
-        document.querySelectorAll('[data-close]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.closest('.modal').classList.remove('active');
-            });
-        });
+    <div class="grid-2">
+      <div class="card glass">
+        <h3>Runtime / Suite Drift</h3>
+        <ul class="risk-list">
+          <li>The suite structure has moved from older guest/demo/authenticated naming into a newer trusted plus payment split, and the reporting layer still needs cleanup to match that model fully.</li>
+          <li>Some smoke report files are stale or misleading, so suite truth currently comes more from the test classes and suite XMLs than from the latest generated report file.</li>
+          <li>Blocked features are mostly content-fixture problems now, not missing framework problems.</li>
+        </ul>
+      </div>
 
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.classList.remove('active');
-            });
-        });
+      <div class="card glass">
+        <h3>Fixture / Account Needs</h3>
+        <ul class="risk-list">
+          <li>Unlock needs deterministic locked content and likely dedicated seeded unlock accounts.</li>
+          <li>Social needs a show or episode where the comments surface is reliably present.</li>
+          <li>Payments must stay isolated to the sandbox payment user and should not be treated as generic smoke for arbitrary accounts.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
-            }
-        });
+  <section id="next" class="container">
+    <div class="section-head">
+      <h2>What This Means Right Now</h2>
+      <p>AutoQure has already moved into practical app-verification territory. The next stage is not proving the concept; it is widening breadth safely and then deepening regression coverage within each feature.</p>
+    </div>
 
-        // 1. Interactive Cursor Glow
-        document.querySelectorAll('.glass, .card, .step-body, .status-card, .stat, .proof-chip').forEach(el => {
-            el.addEventListener('mousemove', e => {
-                const rect = el.getBoundingClientRect();
-                el.style.setProperty('--cursor-x', `${e.clientX - rect.left}px`);
-                el.style.setProperty('--cursor-y', `${e.clientY - rect.top}px`);
-            });
-        });
+    <div class="grid-2">
+      <div class="card glass">
+        <h3>Current Demo Story</h3>
+        <p>
+          We can now demo real feature-based Android coverage across Search, Episode Navigation, Video Player, Wallet, Profile, Library, Language, and sandbox Payments, all backed by concrete Appium classes and suite XMLs rather than only generated ideas.
+        </p>
+      </div>
+      <div class="card glass">
+        <h3>Next Expansion Logic</h3>
+        <p>
+          The fastest path from here is to keep broadening with deterministic features, while separately solving content fixtures for blocked surfaces like Unlock and Social and promoting deeper regression coverage later.
+        </p>
+      </div>
+    </div>
 
-        // 2. Data-Flow Timeline Progress
-        const pipeline = document.querySelector('.pipeline');
-        const progress = document.getElementById('pipeline-progress');
-        if(pipeline && progress) {
-            window.addEventListener('scroll', () => {
-                const rect = pipeline.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                const scrollPercentage = Math.max(0, Math.min(100, ((windowHeight/1.5 - rect.top) / rect.height) * 100));
-                progress.style.height = scrollPercentage + '%';
-                
-                document.querySelectorAll('.step-num').forEach((num, index) => {
-                    const threshold = (index / 4) * 80;
-                    if (scrollPercentage >= threshold) {
-                        num.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
-                        num.style.color = '#fff';
-                        num.style.borderColor = 'transparent';
-                        num.style.boxShadow = '0 0 20px rgba(36, 200, 165, 0.4)';
-                    } else {
-                        num.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03))';
-                        num.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                        num.style.boxShadow = 'none';
-                    }
-                });
-            });
-        }
+    <div class="code-block" style="margin-top: 20px;">Trusted smoke today:
+- Search: 3
+- Episode Navigation: 3
+- Video Player: 2
+- Wallet: 3
+- Library: 3
+- Language: 2
+- Profile: 3
 
-        // 3. Self-Healing Sandbox Demo
-        const btnHeal = document.getElementById('btn-trigger-heal');
-        const healNode = document.getElementById('heal-node');
-        const healBeam = document.getElementById('heal-beam');
-        const healAi = document.getElementById('heal-ai');
-        const healLog = document.getElementById('heal-log');
-        
-        if(btnHeal) {
-            btnHeal.addEventListener('click', () => {
-                btnHeal.disabled = true;
-                btnHeal.style.opacity = '0.5';
-                
-                healNode.style.borderColor = 'var(--danger)';
-                healNode.style.color = 'var(--danger)';
-                healNode.innerHTML = '<i class="uil uil-times"></i>';
-                healLog.style.color = 'var(--danger)';
-                healLog.textContent = '> Exception: ElementNotFound at episode_nav';
-                
-                setTimeout(() => {
-                    healBeam.style.width = '100%';
-                    healLog.style.color = 'var(--muted)';
-                    healLog.textContent = '> Transmitting stack trace to orchestrator...';
-                }, 800);
-                
-                setTimeout(() => {
-                    healAi.style.borderColor = 'var(--accent)';
-                    healAi.style.color = 'var(--accent)';
-                    healAi.style.boxShadow = '0 0 25px rgba(139, 92, 246, 0.5)';
-                    healAi.innerHTML = '<i class="uil uil-sync uil-spin"></i>';
-                    healLog.textContent = '> Claude analyzing hierarchy. Generating patch...';
-                }, 1600);
-                
-                setTimeout(() => {
-                    healBeam.style.background = 'var(--success)';
-                    healBeam.style.boxShadow = '0 0 10px var(--success)';
-                    healAi.innerHTML = '<i class="uil uil-brain"></i>';
-                    healAi.style.borderColor = 'var(--success)';
-                    healAi.style.color = 'var(--success)';
-                    healNode.style.borderColor = 'var(--success)';
-                    healNode.style.color = 'var(--success)';
-                    healNode.innerHTML = '<i class="uil uil-check"></i>';
-                    healLog.style.color = 'var(--success)';
-                    healLog.textContent = '> Patch verified. Element located. Execution resumed.';
-                }, 3200);
-                
-                setTimeout(() => {
-                    healBeam.style.width = '0%';
-                    setTimeout(() => {
-                        healBeam.style.background = 'var(--primary)';
-                        healBeam.style.boxShadow = '0 0 10px var(--primary)';
-                    }, 500);
-                    healAi.style = 'min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;';
-                    healNode.style = 'min-width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.3s; z-index: 2;';
-                    healAi.innerHTML = '<i class="uil uil-brain"></i>';
-                    healNode.innerHTML = '<i class="uil uil-mobile-android"></i>';
-                    healLog.textContent = '';
-                    btnHeal.disabled = false;
-                    btnHeal.style.opacity = '1';
-                }, 6000);
-            });
-        }
-    </script>
+Payment sandbox today:
+- Payments: 1 full Google Play sandbox purchase flow
+
+Blocked but started:
+- Social: 2
+- Unlock: 2
+- Show Detail: 3</div>
+  </section>
+
+  <footer>
+    AutoQure for Pocket Toons • current project snapshot updated to reflect trusted smoke, payment sandbox, breadth expansion, and blocked fixture-dependent features.
+  </footer>
 </body>
-
 </html>
