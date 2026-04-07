@@ -20,6 +20,7 @@
       --amber: #ffbf57;
       --red: #ff7575;
       --violet: #9d8cff;
+      --slate: #8ca4ad;
       --shadow: 0 24px 60px rgba(0,0,0,0.28);
       --radius: 24px;
     }
@@ -39,12 +40,12 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, .brand, .metric strong, .tag, .number-badge {
+    h1, h2, h3, h4, .brand, .metric strong, .tag, .number-badge, .suite-table th {
       font-family: 'Space Grotesk', sans-serif;
     }
 
     .container {
-      width: min(1200px, calc(100% - 40px));
+      width: min(1280px, calc(100% - 40px));
       margin: 0 auto;
     }
 
@@ -61,7 +62,7 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(8, 18, 25, 0.74);
+      background: rgba(8, 18, 25, 0.78);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       backdrop-filter: blur(16px);
     }
@@ -120,7 +121,7 @@
     }
 
     .hero {
-      padding: 90px 0 40px;
+      padding: 88px 0 40px;
     }
 
     .eyebrow {
@@ -138,7 +139,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.18fr 0.82fr;
       gap: 20px;
       align-items: stretch;
     }
@@ -158,7 +159,7 @@
 
     .hero p {
       color: var(--muted);
-      font-size: 1.07rem;
+      font-size: 1.05rem;
       margin-bottom: 26px;
       max-width: 760px;
     }
@@ -219,7 +220,7 @@
 
     .section-head p {
       color: var(--muted);
-      max-width: 860px;
+      max-width: 920px;
       margin: 0 auto;
       font-size: 1.02rem;
     }
@@ -290,10 +291,11 @@
       color: #d8eef0;
     }
 
-    .tag.trusted { background: rgba(72,209,178,0.16); color: #a3f1e0; }
-    .tag.payment { background: rgba(255,191,87,0.16); color: #ffd891; }
+    .tag.ready { background: rgba(72,209,178,0.16); color: #a3f1e0; }
+    .tag.active { background: rgba(103,199,255,0.16); color: #b6e7ff; }
     .tag.blocked { background: rgba(255,117,117,0.14); color: #ffb6b6; }
-    .tag.platform { background: rgba(157,140,255,0.16); color: #d1c8ff; }
+    .tag.progress { background: rgba(255,191,87,0.16); color: #ffd891; }
+    .tag.legacy { background: rgba(157,140,255,0.16); color: #d1c8ff; }
 
     .suite-stats {
       color: var(--muted);
@@ -328,59 +330,178 @@
     }
 
     .count {
-      min-width: 86px;
+      min-width: 96px;
       text-align: right;
       color: #dff9fb;
       font-weight: 700;
       white-space: nowrap;
     }
 
-    .timeline {
-      display: grid;
-      gap: 16px;
-      position: relative;
+    .suite-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
     }
 
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 23px;
-      top: 10px;
-      bottom: 10px;
-      width: 2px;
-      background: rgba(255,255,255,0.08);
+    .suite-table th,
+    .suite-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      vertical-align: top;
     }
 
-    .step {
+    .suite-table tr:last-child td { border-bottom: none; }
+    .suite-table th {
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      color: #dbf4f6;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .suite-table td {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .status-chip.ready { color: #a7f2e2; background: rgba(72,209,178,0.12); }
+    .status-chip.progress { color: #ffd891; background: rgba(255,191,87,0.12); }
+    .status-chip.blocked { color: #ffb6b6; background: rgba(255,117,117,0.12); }
+    .status-chip.legacy { color: #d4cbff; background: rgba(157,140,255,0.12); }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    .timeline-grid {
       display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 16px;
+      gap: 14px;
+    }
+
+    .interval-card {
+      display: grid;
+      grid-template-columns: 180px 1fr 220px;
+      gap: 18px;
       align-items: start;
-      position: relative;
-    }
-
-    .number-badge {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--teal), var(--cyan));
-      color: #082027;
-      font-weight: 800;
-      box-shadow: 0 10px 24px rgba(72,209,178,0.28);
-      z-index: 1;
-    }
-
-    .step-body {
       padding: 22px;
       border-radius: 22px;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .step-body h3 { margin-bottom: 8px; }
-    .step-body p { color: var(--muted); }
+    .interval-date {
+      color: #dff8fa;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+    }
+
+    .interval-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .interval-body p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .mini-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mini-pill {
+      padding: 5px 10px;
+      font-size: 0.76rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #cfe4e8;
+    }
+
+    .progress-box {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .progress-box strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      margin: 8px 0 10px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--cyan));
+    }
+
+    .bar-fill.warn {
+      background: linear-gradient(90deg, var(--amber), #ffd991);
+    }
+
+    .bar-label {
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    .work-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .work-item {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .work-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .work-head strong { font-size: 1rem; }
+    .work-head span { color: #d8eef0; }
+
+    .work-item p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
 
     .status-grid {
       display: grid;
@@ -418,6 +539,15 @@
       color: var(--muted);
     }
 
+    .callout {
+      padding: 24px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(72,209,178,0.12), rgba(103,199,255,0.08));
+      border: 1px solid rgba(103,199,255,0.16);
+    }
+
+    .callout p { color: #d7ebef; }
+
     .code-block {
       padding: 18px;
       border-radius: 18px;
@@ -438,19 +568,21 @@
       font-size: 0.92rem;
     }
 
-    @media (max-width: 1080px) {
+    @media (max-width: 1180px) {
       .hero-grid, .grid-2, .grid-3, .grid-4, .status-grid {
         grid-template-columns: 1fr;
       }
       .metrics { grid-template-columns: repeat(2, 1fr); }
+      .interval-card { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       .nav-links { display: none; }
       .metrics { grid-template-columns: 1fr; }
       .feature-item { flex-direction: column; }
       .count { text-align: left; }
       .hero { padding-top: 58px; }
+      .suite-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
@@ -459,246 +591,377 @@
     <div class="container nav-inner">
       <div class="brand">Auto<span>Qure</span></div>
       <div class="nav-links">
-        <a href="#coverage">Coverage</a>
+        <a href="#snapshot">Snapshot</a>
         <a href="#suites">Suites</a>
-        <a href="#platform">Platform</a>
-        <a href="#healing">Self-Healing</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#workstreams">Effort</a>
         <a href="#blockers">Blockers</a>
-        <a href="#next" class="btn btn-primary">Current State</a>
+        <a href="#takeaways" class="btn btn-primary">Management View</a>
       </div>
     </div>
   </nav>
 
-  <section class="hero container">
-    <div class="eyebrow">AI-driven QA platform for Pocket Toons across source discovery, generated coverage, guarded healing, and real-device validation</div>
+  <section class="hero container" id="snapshot">
+    <div class="eyebrow">Pocket Toons | AutoQure management snapshot | data refreshed through 8 April 2026</div>
     <div class="hero-grid">
       <div class="hero-copy glass">
-        <h1>AutoQure is now a <span>real QA platform</span>, not just a Search pilot</h1>
+        <h1>AutoQure has moved from a <span>19-test smoke pilot</span> to a broader QA platform with 107 automated tests in repo</h1>
         <p>
-          The project has evolved from a single validated feature into a broader Android automation system with trusted smoke coverage, seeded account handling, sandboxed monetization, source-to-spec generation, guarded self-healing, and real-device execution on Samsung hardware.
+          The project now includes generated feature tests, legacy flow suites, payment sandbox coverage, self-healing infrastructure, deployment-smoke orchestration, and a growing release-regression structure. The main gap is no longer “writing tests”; it is stabilizing long-running, real-device execution on the Samsung M12 so that broader coverage becomes reliably usable after backend deployments.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#suites">See Active Suites</a>
-          <a class="btn" href="#healing">See Self-Healing Pipeline</a>
+          <a class="btn btn-primary" href="#suites">See Suite Portfolio</a>
+          <a class="btn" href="#timeline">See 3-Day Timeline</a>
         </div>
         <div class="hero-note">
-          Current state: 7 trusted smoke features, 1 payment sandbox flow, blocked feature scaffolds already written, and a full Appium plus AI orchestration layer supporting discovery, validation, and controlled autofix workflows.
+          Management takeaway: coverage writing has increased sharply, but a significant share of recent time has gone into making that coverage executable without manual babysitting across cold, warm, seeded, and monetization-sensitive states.
         </div>
       </div>
 
       <div class="metrics glass">
         <div class="metric">
-          <strong>8</strong>
-          <span>Active covered feature areas across promoted suites</span>
+          <strong>107</strong>
+          <span>Unique automated test cases currently present in the repo</span>
         </div>
         <div class="metric">
-          <strong>20</strong>
-          <span>Promoted Appium test cases: 19 trusted smoke + 1 payment sandbox</span>
+          <strong>16</strong>
+          <span>Suite XMLs currently present across ready, in-progress, and legacy/support buckets</span>
         </div>
         <div class="metric">
-          <strong>27</strong>
-          <span>Written generated feature tests including blocked surfaces</span>
+          <strong>36</strong>
+          <span>Tests fully ready in the broadest stable suite today: expanded smoke</span>
         </div>
         <div class="metric">
-          <strong>450</strong>
-          <span>Generated candidate cases across 9 feature pools</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="coverage" class="container">
-    <div class="section-head">
-      <h2>Current Feature Coverage</h2>
-      <p>The app is now covered through promoted suites plus blocked-but-started feature work that already exists in code and just needs deterministic fixtures or content.</p>
-    </div>
-
-    <div class="grid-2">
-      <div class="suite-card glass">
-        <div class="suite-top">
-          <h3>Promoted Coverage</h3>
-          <span class="tag trusted">Validated</span>
-        </div>
-        <div class="suite-stats">These features are already represented in active suites.</div>
-        <div class="feature-list">
-          <div class="feature-item"><div><strong>Search</strong><span>Navigation, query execution, search UI state</span></div><div class="count">3 tests</div></div>
-          <div class="feature-item"><div><strong>Episode Navigation</strong><span>Episode modal, chapter list, selection response</span></div><div class="count">3 tests</div></div>
-          <div class="feature-item"><div><strong>Video Player</strong><span>Player load plus play/pause controls</span></div><div class="count">2 tests</div></div>
-          <div class="feature-item"><div><strong>Wallet / My Store</strong><span>Store load, balance visibility, back navigation</span></div><div class="count">3 tests</div></div>
-          <div class="feature-item"><div><strong>Profile</strong><span>Seeded login profile load, key elements, back flow</span></div><div class="count">3 tests</div></div>
-          <div class="feature-item"><div><strong>Library</strong><span>Library tab, content presence, back flow</span></div><div class="count">3 tests</div></div>
-          <div class="feature-item"><div><strong>Language</strong><span>Language selector load and dismissal</span></div><div class="count">2 tests</div></div>
-          <div class="feature-item"><div><strong>Payments Sandbox</strong><span>Google Play test-card purchase with balance delta validation</span></div><div class="count">1 test</div></div>
-        </div>
-      </div>
-
-      <div class="suite-card glass">
-        <div class="suite-top">
-          <h3>Implemented But Blocked</h3>
-          <span class="tag blocked">Needs Fixture</span>
-        </div>
-        <div class="suite-stats">These flows already exist in code but are not promoted because runtime content or navigation is not deterministic yet.</div>
-        <div class="feature-list">
-          <div class="feature-item"><div><strong>Social</strong><span>Comments widget path exists, but reliable comments content is not consistently available</span></div><div class="count">2 tests</div></div>
-          <div class="feature-item"><div><strong>Unlock</strong><span>Unlock sheet tests exist, but deterministic locked content is still missing</span></div><div class="count">2 tests</div></div>
-          <div class="feature-item"><div><strong>Show Detail</strong><span>Tests written, but detail-page navigation is not consistently reachable from current UI flows</span></div><div class="count">3 tests</div></div>
-        </div>
-        <div class="pill-row">
-          <span class="pill">Blocked by content availability</span>
-          <span class="pill">Not blocked by missing framework code</span>
-          <span class="pill">Ready to resume once fixtures are fixed</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="suites" class="container">
-    <div class="section-head">
-      <h2>Active Suite Structure</h2>
-      <p>The project now uses separate promoted tracks for broad smoke validation and sensitive monetization coverage.</p>
-    </div>
-
-    <div class="grid-2">
-      <div class="suite-card glass">
-        <div class="suite-top">
-          <h3>Trusted Smoke Suite</h3>
-          <span class="tag trusted">7 features / 19 tests</span>
-        </div>
-        <div class="suite-stats">Main suite: search, episode_nav, video_player, wallet, library, language, profile.</div>
-        <p style="color: var(--muted);">
-          This is the current broad Android validation baseline. It mixes warm flows and seeded-auth profile coverage and is intended to become the repeatable confidence layer for build verification.
-        </p>
-        <div class="pill-row">
-          <span class="pill">Physical Samsung device coverage</span>
-          <span class="pill">UiAutomator2 pre-run cleanup</span>
-          <span class="pill">Seeded auth support</span>
-          <span class="pill">Feature-based smoke reporting</span>
-        </div>
-      </div>
-
-      <div class="suite-card glass">
-        <div class="suite-top">
-          <h3>Payment Sandbox Suite</h3>
-          <span class="tag payment">1 monetization flow</span>
-        </div>
-        <div class="suite-stats">Dedicated suite for Google Play sandbox purchase validation using one protected seeded payment account.</div>
-        <p style="color: var(--muted);">
-          This flow opens My Store, captures the initial balance, selects a visible paid plan, handles login and checkout chooser states, completes the Google Play test-card purchase, and verifies that the balance increases after purchase.
-        </p>
-        <div class="pill-row">
-          <span class="pill">Sandbox-only user</span>
-          <span class="pill">Google Play test card</span>
-          <span class="pill">Balance delta assertion</span>
-          <span class="pill">Separate from core smoke</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="platform" class="container">
-    <div class="section-head">
-      <h2>Platform Layers We Have Built</h2>
-      <p>AutoQure is not only a suite of Appium tests. It is now a multi-layer QA platform connecting discovery, generation, execution, reporting, and guarded repair.</p>
-    </div>
-
-    <div class="grid-3">
-      <div class="card glass">
-        <h3>Source Discovery Layer</h3>
-        <p>App Explorer and feature analysis scan Kotlin source, layout XMLs, and UI IDs to identify feature surfaces and produce screen specs for candidate coverage generation.</p>
-        <div class="pill-row">
-          <span class="pill">Kotlin + XML scanning</span>
-          <span class="pill">Feature grouping</span>
-          <span class="pill">Spec generation</span>
-        </div>
-      </div>
-      <div class="card glass">
-        <h3>Appium Framework Layer</h3>
-        <p>Page objects, BasePage, TestBootstrap, ContentResolver, and generated feature tests provide the real device execution foundation across guest, warm, seeded, and payment-sensitive flows.</p>
-        <div class="pill-row">
-          <span class="pill">Page objects</span>
-          <span class="pill">Seeded auth bootstrap</span>
-          <span class="pill">Real-device navigation</span>
-        </div>
-      </div>
-      <div class="card glass">
-        <h3>Operational Orchestration Layer</h3>
-        <p>Runner and reporting scripts now coordinate smoke execution, suite selection, APK install paths, healing mode control, and report generation for build-style validation.</p>
-        <div class="pill-row">
-          <span class="pill">run_smoke_validation.py</span>
-          <span class="pill">run_appium_suite.sh</span>
-          <span class="pill">run_autoqure_cycle.py</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="healing" class="container">
-    <div class="section-head">
-      <h2>Self-Healing and Guarded Autofix Pipeline</h2>
-      <p>This is one of the most important parts of the project story. AutoQure does not just run tests; it diagnoses failures, proposes fixes, and validates them under guardrails before keeping any change.</p>
-    </div>
-
-    <div class="timeline">
-      <div class="step">
-        <div class="number-badge">1</div>
-        <div class="step-body glass">
-          <h3>Failure Classification</h3>
-          <p>When a test fails, the Appium healing pipeline classifies the failure category using logs, XML reports, and execution context. Typical classes include timeout, assertion failure, screen-state mismatch, and crash-linked failures.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="number-badge">2</div>
-        <div class="step-body glass">
-          <h3>Target Selection</h3>
-          <p>The pipeline maps the failure to the most relevant file and surface, such as a generated test, a page object, or a shared framework helper, instead of blindly editing unrelated code.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="number-badge">3</div>
-        <div class="step-body glass">
-          <h3>Suggested or Applied Fix</h3>
-          <p>In suggestion mode, AutoQure records the diagnosis without editing files. In guarded autofix mode, the LLM can generate a constrained candidate patch for the failing Appium code path.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="number-badge">4</div>
-        <div class="step-body glass">
-          <h3>Sandbox Validation</h3>
-          <p>Candidate fixes are validated through compile plus targeted rerun workflows using the sandbox executor. If validation fails, touched files are restored instead of leaving the workspace in a broken state.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="number-badge">5</div>
-        <div class="step-body glass">
-          <h3>Guardrails and Protected Zones</h3>
-          <p>Protected files and sensitive surfaces such as auth, payment, encryption, credentials, and other high-risk code paths are blocked from unsafe autofix, which keeps healing scoped and safer for production-adjacent work.</p>
+          <strong>39</strong>
+          <span>Currently green across ready suites if counting cold onboarding separately</span>
         </div>
       </div>
     </div>
   </section>
 
   <section class="container">
+    <div class="status-grid">
+      <div class="status glass">
+        <strong>60</strong>
+        <p>Generated feature-based test cases written in the newer AutoQure structure</p>
+      </div>
+      <div class="status glass">
+        <strong>47</strong>
+        <p>Legacy flow tests still present and reusable for onboarding, feed, login, and E2E paths</p>
+      </div>
+      <div class="status glass">
+        <strong>36 / 36</strong>
+        <p>Best proven expanded-smoke milestone on the Samsung M12</p>
+      </div>
+      <div class="status glass">
+        <strong>21 / 39</strong>
+        <p>Latest deployment-smoke architecture run: backbone exists, endurance still unstable</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="suites" class="container">
     <div class="section-head">
-      <h2>Important Operational Components</h2>
-      <p>The project now has a meaningful operational stack behind the tests themselves.</p>
+      <h2>Suite Portfolio and Readiness</h2>
+      <p>These suite counts overlap heavily, so they should not be added together. The important view for management is which suites are usable now, which are being stabilized, and which are legacy/support assets.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Ready Now</h3>
+          <span class="tag ready">usable today</span>
+        </div>
+        <div class="suite-stats">These suites can be shown as current working coverage.</div>
+        <table class="suite-table">
+          <thead>
+            <tr><th>Suite</th><th>Tests</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>testng-smoke-authenticated.xml</td><td>19</td><td><span class="status-chip ready">ready</span></td></tr>
+            <tr><td>testng-smoke-expanded.xml</td><td>36</td><td><span class="status-chip ready">ready</span></td></tr>
+            <tr><td>testng-deploy-cold.xml</td><td>3</td><td><span class="status-chip ready">ready</span></td></tr>
+            <tr><td>testng-payment-flow.xml</td><td>1</td><td><span class="status-chip progress">isolated sandbox</span></td></tr>
+          </tbody>
+        </table>
+        <div class="note">Best current production-style statement: 36 tests are broadly ready; 39 are passing if cold onboarding is counted as a separate ready block.</div>
+      </div>
+
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>In Progress</h3>
+          <span class="tag progress">stabilizing</span>
+        </div>
+        <div class="suite-stats">These suites exist and are valuable, but they are not yet management-safe to present as fully ready.</div>
+        <table class="suite-table">
+          <thead>
+            <tr><th>Suite</th><th>Tests</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>testng-deploy-warm.xml</td><td>30</td><td><span class="status-chip progress">device endurance issue</span></td></tr>
+            <tr><td>testng-deploy-seeded.xml</td><td>6</td><td><span class="status-chip progress">seeded stabilization</span></td></tr>
+            <tr><td>testng-full-app-smoke.xml</td><td>46</td><td><span class="status-chip progress">integration suite</span></td></tr>
+            <tr><td>testng-regression-all.xml</td><td>78</td><td><span class="status-chip progress">written pool</span></td></tr>
+            <tr><td>testng-regression-search.xml</td><td>15</td><td><span class="status-chip progress">written</span></td></tr>
+            <tr><td>testng-regression-onboarding.xml</td><td>17</td><td><span class="status-chip progress">written</span></td></tr>
+            <tr><td>testng-regression-feed.xml</td><td>9</td><td><span class="status-chip progress">written</span></td></tr>
+          </tbody>
+        </table>
+        <div class="note">The immediate next goal is not to create more large suites, but to stabilize deployment smoke by splitting warm into smaller internally orchestrated blocks.</div>
+      </div>
+
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Legacy / Support</h3>
+          <span class="tag legacy">historical assets</span>
+        </div>
+        <div class="suite-stats">Useful for reuse and gap-filling, but not the primary current operating model.</div>
+        <table class="suite-table">
+          <thead>
+            <tr><th>Suite</th><th>Tests</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>testng-android-single.xml</td><td>27</td><td><span class="status-chip legacy">legacy baseline</span></td></tr>
+            <tr><td>testng-playeronoff.xml</td><td>1</td><td><span class="status-chip legacy">support</span></td></tr>
+            <tr><td>testng-android-parallel-2device-player.xml</td><td>2</td><td><span class="status-chip legacy">support</span></td></tr>
+            <tr><td>testng-diagnostic.xml</td><td>0</td><td><span class="status-chip legacy">diagnostic</span></td></tr>
+            <tr><td>testng-android-parallel-2device.xml</td><td>broken</td><td><span class="status-chip blocked">malformed XML</span></td></tr>
+          </tbody>
+        </table>
+        <div class="note">These suites still matter because they contain onboarding, login, feed, and E2E flow coverage that can be mined into the newer deployment-smoke structure.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <h2>Current Ready Coverage by Feature</h2>
+      <p>This is the clearest “what works now” view across the broader stable suite plus isolated sandbox path.</p>
     </div>
 
     <div class="grid-2">
-      <div class="card glass">
-        <h3>Core Execution and Reporting</h3>
-        <div class="code-block">scripts/run_smoke_validation.py
-scripts/run_appium_suite.sh
-scripts/run_full_appium_regression.sh
-scripts/merge_appium_reports.py</div>
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Stable Expanded Smoke</h3>
+          <span class="tag ready">36 tests green</span>
+        </div>
+        <div class="feature-list">
+          <div class="feature-item"><div><strong>Search</strong><span>Core + selected regression depth</span></div><div class="count">8</div></div>
+          <div class="feature-item"><div><strong>Episode Navigation</strong><span>Core + selected regression depth</span></div><div class="count">6</div></div>
+          <div class="feature-item"><div><strong>Video Player</strong><span>Core + selected regression depth</span></div><div class="count">5</div></div>
+          <div class="feature-item"><div><strong>Wallet / Store</strong><span>Core + selected regression depth</span></div><div class="count">6</div></div>
+          <div class="feature-item"><div><strong>Library</strong><span>Core coverage</span></div><div class="count">3</div></div>
+          <div class="feature-item"><div><strong>Language</strong><span>Core coverage</span></div><div class="count">2</div></div>
+          <div class="feature-item"><div><strong>Profile</strong><span>Core + selected regression depth</span></div><div class="count">6</div></div>
+        </div>
       </div>
-      <div class="card glass">
-        <h3>Healing and AI Support</h3>
-        <div class="code-block">scripts/appium_self_healing_cli.py
-scripts/appium_self_healing/pipeline.py
-scripts/appium_self_healing/ai_code_generator.py
-scripts/appium_self_healing/sandbox_executor.py
-scripts/llm_cli.py
-scripts/run_autoqure_cycle.py</div>
+
+      <div class="suite-card glass">
+        <div class="suite-top">
+          <h3>Written But Not Promoted Yet</h3>
+          <span class="tag blocked">fixture dependent</span>
+        </div>
+        <div class="feature-list">
+          <div class="feature-item"><div><strong>Show Detail</strong><span>Navigation path still inconsistent on current app/device path</span></div><div class="count">3</div></div>
+          <div class="feature-item"><div><strong>Social</strong><span>Comments surface not deterministic on available content</span></div><div class="count">2</div></div>
+          <div class="feature-item"><div><strong>Unlock</strong><span>Locked-content fixture missing on current test content</span></div><div class="count">2</div></div>
+          <div class="feature-item"><div><strong>Payments</strong><span>Google Play sandbox flow exists separately and remains isolated</span></div><div class="count">1</div></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Code exists</span>
+          <span class="pill">Not all are safe to count as ready</span>
+          <span class="pill">Main blockers are fixtures and device state</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline" class="container">
+    <div class="section-head">
+      <h2>3-Day Progress Timeline Since 16 March</h2>
+      <p>This view is designed for higher management. It shows what got built in each 3-day band and why the pace of “ready tests” lags the pace of “written automation”.</p>
+    </div>
+
+    <div class="timeline-grid">
+      <div class="interval-card glass">
+        <div class="interval-date">16–18 Mar</div>
+        <div class="interval-body">
+          <div class="interval-title">Foundation reset and direction locking</div>
+          <p>Aligned the project around Appium-driven AutoQure instead of scattered legacy paths. Early work centered on repo scan, strategy, cleanup direction, and identifying what had real forward value.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Project framing</span>
+            <span class="mini-pill">Cleanup direction</span>
+            <span class="mini-pill">Automation architecture</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready coverage: foundation phase</strong>
+          <div class="bar-track"><div class="bar-fill warn" style="width: 8%;"></div></div>
+          <div class="bar-label">Focus was architecture and cleanup, not ready-count growth yet.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">19–21 Mar</div>
+        <div class="interval-body">
+          <div class="interval-title">Self-healing and execution groundwork</div>
+          <p>Runner, healing, sandbox-validation, source-discovery, and reporting layers became a real platform direction. This is where a lot of hidden platform value started to form.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Runner pipeline</span>
+            <span class="mini-pill">Healing framework</span>
+            <span class="mini-pill">Execution model</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready coverage: still low</strong>
+          <div class="bar-track"><div class="bar-fill warn" style="width: 12%;"></div></div>
+          <div class="bar-label">Platform layers grew faster than visible smoke count.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">22–24 Mar</div>
+        <div class="interval-body">
+          <div class="interval-title">Specs, page objects, and generation path</div>
+          <p>Source-driven feature exploration, screen specs, page-object expansion, and generation-oriented flow design accelerated. This laid the base for later feature breadth and candidate test pools.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Feature specs</span>
+            <span class="mini-pill">Page objects</span>
+            <span class="mini-pill">Case generation path</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready coverage: preparation</strong>
+          <div class="bar-track"><div class="bar-fill warn" style="width: 16%;"></div></div>
+          <div class="bar-label">More code existed than was yet validated on device.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">25–27 Mar</div>
+        <div class="interval-body">
+          <div class="interval-title">Real-device hardening before first promotions</div>
+          <p>Candidate generation, runner/reporting alignment, and Samsung M12-specific stabilization work accelerated. This period mostly converted ideas into something that could survive real-device execution.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Candidate pools</span>
+            <span class="mini-pill">Smoke reporting</span>
+            <span class="mini-pill">Device hardening</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready coverage: pre-promotion</strong>
+          <div class="bar-track"><div class="bar-fill warn" style="width: 20%;"></div></div>
+          <div class="bar-label">Effort went into making the first real promotions possible.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">28–30 Mar</div>
+        <div class="interval-body">
+          <div class="interval-title">First trusted feature coverage became real</div>
+          <p>Search, Episode Navigation, and Video Player were promoted as the first genuinely validated feature surfaces. This established the initial trusted smoke baseline.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Search 3</span>
+            <span class="mini-pill">EpisodeNav 3</span>
+            <span class="mini-pill">Video 2</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready tests cumulative: 8</strong>
+          <div class="bar-track"><div class="bar-fill" style="width: 21%;"></div></div>
+          <div class="bar-label">This is where visible coverage first started compounding.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">31 Mar–2 Apr</div>
+        <div class="interval-body">
+          <div class="interval-title">Breadth expansion and seeded plus payment handling</div>
+          <p>Profile, Wallet, Library, and Language were added into the active picture, while the Google Play sandbox purchase flow was implemented separately for monetization coverage.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Profile 3</span>
+            <span class="mini-pill">Wallet 3</span>
+            <span class="mini-pill">Library 3</span>
+            <span class="mini-pill">Language 2</span>
+            <span class="mini-pill">Payment 1</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready tests cumulative: 20</strong>
+          <div class="bar-track"><div class="bar-fill" style="width: 51%;"></div></div>
+          <div class="bar-label">Trusted smoke reached 19 tests; payment sandbox became real as an isolated flow.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">3–5 Apr</div>
+        <div class="interval-body">
+          <div class="interval-title">Regression depth and 36-test expanded smoke</div>
+          <p>Regression classes were added for Search, EpisodeNav, VideoPlayer, Wallet, and Profile. The expanded smoke suite reached a strong 36/36 pass milestone on the M12.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">+33 generated tests since early snapshot</span>
+            <span class="mini-pill">Expanded smoke 36/36</span>
+            <span class="mini-pill">Feature matrix created</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready tests cumulative: 36</strong>
+          <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
+          <div class="bar-label">This is the strongest broad ready baseline currently available.</div>
+        </div>
+      </div>
+
+      <div class="interval-card glass">
+        <div class="interval-date">6–8 Apr</div>
+        <div class="interval-body">
+          <div class="interval-title">Deployment-smoke architecture and endurance diagnosis</div>
+          <p>Cold/warm/seeded deployment-smoke structure, merged reporting, checksum guard, and device-state orchestration were added. Most recent effort exposed that the M12 cannot sustain very long consecutive Appium sessions without resets and phase splitting.</p>
+          <div class="mini-pills">
+            <span class="mini-pill">Deployment smoke backbone</span>
+            <span class="mini-pill">M12 endurance issue isolated</span>
+            <span class="mini-pill">Search / Language / Profile fixes validated individually</span>
+          </div>
+        </div>
+        <div class="progress-box">
+          <strong>Ready tests today: 39 across ready suites</strong>
+          <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+          <div class="bar-label">Ready count grew modestly here because time went into stability and orchestration, not just writing more tests.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="workstreams" class="container">
+    <div class="section-head">
+      <h2>Where the Time Has Been Going</h2>
+      <p>These are directional workstream estimates based on the visible project activity. They are not logged timesheets, but they explain why “tests written” has grown faster than “tests completely ready”.</p>
+    </div>
+
+    <div class="work-grid">
+      <div class="work-item glass">
+        <div class="work-head"><strong>Device stability and UiAutomator2 endurance</strong><span>~35%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 35%;"></div></div>
+        <p>Samsung M12 endurance, UiAutomator2 crashes, disconnects, resets, and repeated long-suite recovery have consumed a large share of the recent effort.</p>
+      </div>
+      <div class="work-item glass">
+        <div class="work-head"><strong>Coverage generation and feature expansion</strong><span>~25%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 25%;"></div></div>
+        <p>New test classes, regression depth, page objects, feature matrices, and suite growth are the visible coverage gains the team sees in repo count.</p>
+      </div>
+      <div class="work-item glass">
+        <div class="work-head"><strong>State management: cold, warm, seeded, payment</strong><span>~20%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 20%;"></div></div>
+        <p>Much of the automation complexity is making the same app work reliably across onboarding, warm-feed, seeded-auth, and monetization-sensitive states.</p>
+      </div>
+      <div class="work-item glass">
+        <div class="work-head"><strong>Reporting, orchestration, and suite plumbing</strong><span>~10%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 10%;"></div></div>
+        <p>Deployment-smoke orchestration, merged reports, per-phase artifacts, and guardrails are not flashy, but they are required for management-safe, one-command execution.</p>
+      </div>
+      <div class="work-item glass">
+        <div class="work-head"><strong>Blocked fixtures and monetization constraints</strong><span>~10%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 10%;"></div></div>
+        <p>Unlock, Social, Show Detail, and payment isolation depend on deterministic content, seeded users, and backend-safe flows, which slows promotion even when code exists.</p>
       </div>
     </div>
   </section>
@@ -706,7 +969,7 @@ scripts/run_autoqure_cycle.py</div>
   <section class="container">
     <div class="section-head">
       <h2>Project Numbers</h2>
-      <p>The current automation system is already substantial in both coverage and platform complexity.</p>
+      <p>The system is now broad enough that management should think of it as a QA platform in build-out, not a single automation script collection.</p>
     </div>
 
     <div class="status-grid">
@@ -720,93 +983,81 @@ scripts/run_autoqure_cycle.py</div>
       </div>
       <div class="status glass">
         <strong>16,747</strong>
-        <p>Lines in supporting scripts for orchestration, healing, and reporting</p>
+        <p>Lines in supporting orchestration, healing, and reporting scripts</p>
       </div>
       <div class="status glass">
-        <strong>59k+</strong>
-        <p>Lines in AutoQure cycle artifacts and reports supporting feature expansion</p>
+        <strong>450+</strong>
+        <p>Generated candidate cases across multiple feature pools feeding future coverage</p>
       </div>
     </div>
   </section>
 
   <section id="blockers" class="container">
     <div class="section-head">
-      <h2>Current Blockers and Honest Constraints</h2>
-      <p>The system is broad now, but not every implemented surface is promotion-ready. These are the real remaining constraints.</p>
+      <h2>Current Blockers and Why Ready Count Is Lower Than Repo Count</h2>
+      <p>Higher-level explanation: the gap is now mostly in execution reliability and fixture determinism, not in our ability to write additional test code.</p>
     </div>
 
     <div class="grid-2">
       <div class="card glass">
-        <h3>Coverage / Fixture Gaps</h3>
+        <h3>Technical / Device Constraints</h3>
         <ul class="risk-list">
-          <li>Unlock needs deterministic locked content and likely dedicated seeded unlock accounts.</li>
-          <li>Social needs a show or episode where the comments surface is reliably present.</li>
-          <li>Show Detail still needs a consistent, user-reachable navigation path before promotion.</li>
+          <li>The Samsung M12 is not reliably sustaining long runs of 30+ back-to-back Appium sessions without UiAutomator2 resets or phase splitting.</li>
+          <li>Deployment smoke exists architecturally, but warm and seeded phases still need split-phase hardening before they can be counted as management-safe.</li>
+          <li>Some time has been lost to AI/linter corruption of shared framework files, which then had to be restored and guarded.</li>
         </ul>
       </div>
 
       <div class="card glass">
-        <h3>Operational Cleanup Still Needed</h3>
+        <h3>Feature / Fixture Constraints</h3>
         <ul class="risk-list">
-          <li>The suite structure has moved from older guest and demo naming into a newer trusted plus payment split, and the reporting layer still needs final cleanup to align fully.</li>
-          <li>Some generated smoke report files are stale or misleading, so the current source of truth is the suite XML plus the promoted test classes rather than the last report artifact alone.</li>
-          <li>Payment must remain isolated to the sandbox-marked seeded payment account and should not be treated as a normal generic smoke user flow.</li>
+          <li>Unlock needs deterministic locked content or a seeded limited-access user to become promotion-ready.</li>
+          <li>Social needs a reliable comments surface on available content.</li>
+          <li>Show Detail still needs a stable, repeatable user navigation path on the current app/device flow.</li>
+          <li>Payments must remain sandboxed and isolated from the normal smoke users.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section id="next" class="container">
+  <section id="takeaways" class="container">
     <div class="section-head">
-      <h2>What This Means Right Now</h2>
-      <p>AutoQure has crossed the concept stage. It now combines feature breadth, seeded-flow handling, monetization validation, and guarded self-healing into a practical QA platform for Pocket Toons.</p>
+      <h2>What Management Should Take Away</h2>
+      <p>A concise leadership reading of where we stand right now.</p>
     </div>
 
     <div class="grid-2">
-      <div class="card glass">
-        <h3>Current Demo Story</h3>
+      <div class="callout glass">
+        <h3 style="margin-bottom: 10px;">What has materially improved</h3>
         <p>
-          We can now demo real Android coverage across Search, Episode Navigation, Video Player, Wallet, Profile, Library, Language, and sandbox Payments, backed by concrete Appium classes, suite XMLs, seeded-state handling, and real-device execution.
+          Since the earlier 19-test trusted smoke snapshot, the project has grown to 60 generated tests, 107 total repo tests, a 36-test fully green expanded smoke baseline, isolated payment sandbox automation, a deployment-smoke backbone, and a management-level feature matrix.
         </p>
       </div>
-      <div class="card glass">
-        <h3>Current Expansion Logic</h3>
+      <div class="callout glass">
+        <h3 style="margin-bottom: 10px;">Why this still feels slower than expected</h3>
         <p>
-          The next stage is to keep broadening through deterministic features, unblock fixture-dependent surfaces like Unlock and Social, and then deepen regression coverage within each feature while preserving the trusted smoke baseline.
+          AI accelerated test writing, but the current bottleneck is converting those tests into stable real-device coverage across cold, warm, seeded, and payment-sensitive states on an unstable Samsung M12 execution environment.
         </p>
       </div>
     </div>
 
-    <div class="code-block" style="margin-top: 20px;">Trusted smoke today:
-- Search: 3
-- Episode Navigation: 3
-- Video Player: 2
-- Wallet: 3
-- Library: 3
-- Language: 2
-- Profile: 3
+    <div class="code-block" style="margin-top: 20px;">Current management snapshot
+- Total unique automated tests in repo: 107
+- Current broad ready suite: 36 tests (expanded smoke)
+- Ready if cold onboarding is counted separately: 39 tests
+- Suite XMLs present: 16
+- Deployment smoke target structure exists, but full green execution is still being stabilized
+- Payments remain isolated in sandbox
+- Social / Unlock / Show Detail are written but blocked by deterministic fixture/navigation constraints
 
-Payment sandbox today:
-- Payments: 1 full Google Play sandbox purchase flow
-
-Blocked but started:
-- Social: 2
-- Unlock: 2
-- Show Detail: 3
-
-Platform story that must be mentioned:
-- App Explorer and source-driven spec generation
-- Generated case pools
-- Real Appium framework and page objects
-- Seeded auth and payment account handling
-- Failure classification
-- Guarded LLM autofix
-- Sandbox validation and restore-on-fail
-- Build-style smoke reporting and orchestration</div>
+Important note
+- Suite counts overlap. They are different views of the same test inventory, not additive totals.
+- The correct near-term target is not “create more giant suites.”
+- The correct near-term target is “make deployment smoke reliable, then continue coverage expansion.”</div>
   </section>
 
   <footer>
-    AutoQure for Pocket Toons • updated snapshot covering coverage breadth, monetization, self-healing pipeline, guardrails, and operational platform layers.
+    AutoQure for Pocket Toons • management snapshot updated from repo scan, suite XML counts, smoke reports, deployment-smoke reports, and active project context through 8 April 2026.
   </footer>
 </body>
 </html>
